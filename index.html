@@ -4,41 +4,50 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MarketAhead | 每日市场简报</title>
-  <meta name="description" content="A股港股早报与美股盘前简报的每日汇总。">
+  <meta name="description" content="A股港股早报与美股盘前简报的每日图文汇总。">
   <style>
     :root {
       color-scheme: light;
-      --bg: #f6f7f9;
+      --bg: #f4f6f8;
       --panel: #ffffff;
-      --ink: #16202a;
-      --muted: #65717f;
-      --line: #dce2ea;
-      --accent: #006d77;
-      --accent-2: #b45309;
-      --good: #087f5b;
-      --bad: #b42318;
-      --shadow: 0 16px 45px rgba(20, 31, 44, 0.08);
+      --panel-soft: #f9fafb;
+      --ink: #151d26;
+      --muted: #687585;
+      --line: #dce3eb;
+      --teal: #007481;
+      --indigo: #4f46e5;
+      --amber: #b45309;
+      --green: #087f5b;
+      --red: #b42318;
+      --blue: #0969da;
+      --shadow: 0 18px 48px rgba(20, 31, 44, 0.08);
     }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       background: var(--bg);
       color: var(--ink);
-      line-height: 1.62;
+      line-height: 1.58;
     }
+
     .topbar {
       border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       position: sticky;
       top: 0;
       z-index: 10;
       backdrop-filter: blur(14px);
     }
-    .topbar-inner, main {
-      width: min(1160px, calc(100% - 32px));
+
+    .topbar-inner,
+    main {
+      width: min(1240px, calc(100% - 32px));
       margin: 0 auto;
     }
+
     .topbar-inner {
       min-height: 64px;
       display: flex;
@@ -46,79 +55,229 @@
       justify-content: space-between;
       gap: 16px;
     }
+
     .brand { display: flex; flex-direction: column; gap: 1px; }
     .brand strong { font-size: 18px; letter-spacing: 0; }
     .brand span, .updated { color: var(--muted); font-size: 13px; }
-    main { padding: 32px 0 48px; }
+
+    main { padding: 28px 0 48px; }
+
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
-      gap: 20px;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+      gap: 18px;
       align-items: stretch;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
-    .headline, .status-panel, .brief, .note {
+
+    .panel {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 8px;
       box-shadow: var(--shadow);
     }
+
     .headline { padding: 28px; }
-    h1, h2, h3, p { margin-top: 0; }
-    h1 { margin-bottom: 12px; font-size: clamp(28px, 4vw, 48px); line-height: 1.12; letter-spacing: 0; }
-    h2 { font-size: 22px; margin-bottom: 14px; letter-spacing: 0; }
-    h3 { font-size: 17px; margin: 22px 0 8px; letter-spacing: 0; }
+
+    h1, h2, h3, h4, p { margin-top: 0; }
+    h1 { margin-bottom: 12px; font-size: clamp(30px, 4vw, 50px); line-height: 1.1; letter-spacing: 0; }
+    h2 { font-size: 22px; margin: 0; letter-spacing: 0; }
+    h3 { font-size: 16px; margin: 0 0 10px; letter-spacing: 0; }
+    h4 { font-size: 13px; margin: 0 0 6px; color: var(--muted); letter-spacing: 0; }
     p { margin-bottom: 12px; }
-    ul, ol { padding-left: 1.35rem; margin: 8px 0 16px; }
+    ul, ol { padding-left: 1.2rem; margin: 8px 0 0; }
     li + li { margin-top: 6px; }
-    .dek { color: var(--muted); max-width: 840px; font-size: 16px; }
-    .status-panel { padding: 22px; display: grid; gap: 14px; align-content: start; }
-    .status-item { border-top: 1px solid var(--line); padding-top: 12px; }
-    .status-item:first-child { border-top: 0; padding-top: 0; }
-    .status-label { color: var(--muted); display: block; font-size: 12px; margin-bottom: 2px; }
-    .status-value { font-weight: 650; font-size: 15px; }
-    .brief-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-    .brief { padding: 24px; min-width: 0; }
-    .brief-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 14px;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 14px;
-      margin-bottom: 18px;
-    }
-    .brief-kicker { color: var(--accent); font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-    .brief-time { color: var(--muted); font-size: 12px; text-align: right; min-width: 120px; }
-    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+
+    .dek { color: var(--muted); max-width: 860px; font-size: 16px; }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
     .tag {
       border: 1px solid var(--line);
       border-radius: 999px;
       padding: 4px 10px;
       color: var(--muted);
       font-size: 12px;
-      background: #fbfcfd;
+      background: var(--panel-soft);
     }
-    .note { padding: 18px 22px; margin-top: 20px; color: var(--muted); font-size: 13px; }
-    .brief-content strong { color: var(--ink); }
-    .brief-content .positive { color: var(--good); font-weight: 650; }
-    .brief-content .negative { color: var(--bad); font-weight: 650; }
-    .brief-content .watch { color: var(--accent-2); font-weight: 650; }
+
+    .status-panel { padding: 20px; display: grid; gap: 12px; align-content: start; }
+    .status-item { border-top: 1px solid var(--line); padding-top: 11px; }
+    .status-item:first-child { border-top: 0; padding-top: 0; }
+    .status-label { color: var(--muted); display: block; font-size: 12px; margin-bottom: 2px; }
+    .status-value { font-weight: 650; font-size: 15px; }
+
+    .market-ribbon {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .ribbon-card {
+      padding: 14px 16px;
+      min-height: 86px;
+    }
+
+    .ribbon-card span { display: block; color: var(--muted); font-size: 12px; }
+    .ribbon-card strong { display: block; margin-top: 6px; font-size: 18px; }
+    .ribbon-card small { color: var(--muted); }
+
+    .brief-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .brief { min-width: 0; overflow: hidden; }
+    .brief-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 1px solid var(--line);
+      padding: 20px 22px 16px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
+    }
+    .brief-kicker { color: var(--teal); font-size: 13px; font-weight: 750; margin-bottom: 4px; }
+    .brief-time { color: var(--muted); font-size: 12px; text-align: right; min-width: 128px; }
+    .brief-content { padding: 18px; }
+
+    .brief-dashboard { display: grid; gap: 12px; }
+    .module-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .module {
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+      border-radius: 8px;
+      padding: 14px;
+      min-width: 0;
+    }
+    .module.full { grid-column: 1 / -1; }
+    .module p:last-child { margin-bottom: 0; }
+
+    .takeaway {
+      border-left: 4px solid var(--teal);
+      background: #f1fbfc;
+    }
     .preview-note {
-      border-left: 4px solid var(--accent-2);
+      border-left: 4px solid var(--amber);
       background: #fff8ed;
-      padding: 10px 12px;
       color: #704214;
-      margin-bottom: 14px;
       border-radius: 6px;
+      padding: 10px 12px;
     }
-    @media (max-width: 820px) {
+
+    .asset-strip { display: grid; gap: 8px; }
+    .asset-row {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr) 52px;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+    .bar { height: 8px; border-radius: 999px; background: #e7edf3; overflow: hidden; }
+    .bar i { display: block; height: 100%; border-radius: inherit; }
+    .bar.up i { background: var(--green); }
+    .bar.down i { background: var(--red); }
+    .bar.neutral i { background: var(--blue); }
+
+    .sector-board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .sector-tile {
+      min-height: 72px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 10px;
+    }
+    .sector-tile b { display: block; font-size: 13px; margin-bottom: 4px; }
+    .sector-tile span { color: var(--muted); font-size: 12px; }
+
+    .logic-chain { display: grid; gap: 8px; counter-reset: chain; }
+    .logic-step {
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      font-size: 13px;
+    }
+    .logic-step::before {
+      counter-increment: chain;
+      content: counter(chain);
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: #e8f5f6;
+      color: var(--teal);
+      font-weight: 750;
+      font-size: 12px;
+    }
+
+    .word-cloud {
+      min-height: 184px;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+      gap: 8px 12px;
+      padding: 12px;
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(0,116,129,0.10), transparent 28%),
+        radial-gradient(circle at 82% 72%, rgba(79,70,229,0.10), transparent 30%),
+        #ffffff;
+      border: 1px solid var(--line);
+    }
+    .word-cloud span {
+      display: inline-block;
+      color: var(--teal);
+      font-weight: 750;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .word-cloud .w1 { font-size: 13px; opacity: .72; }
+    .word-cloud .w2 { font-size: 16px; color: var(--blue); }
+    .word-cloud .w3 { font-size: 20px; color: var(--indigo); }
+    .word-cloud .w4 { font-size: 25px; color: var(--teal); }
+    .word-cloud .w5 { font-size: 31px; color: var(--amber); }
+
+    .risk-list { display: grid; gap: 8px; }
+    .risk-item {
+      display: grid;
+      grid-template-columns: 8px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      font-size: 13px;
+    }
+    .risk-dot { width: 8px; height: 8px; border-radius: 999px; margin-top: 7px; background: var(--amber); }
+    .risk-dot.high { background: var(--red); }
+    .risk-dot.low { background: var(--green); }
+
+    .positive { color: var(--green); font-weight: 700; }
+    .negative { color: var(--red); font-weight: 700; }
+    .watch { color: var(--amber); font-weight: 700; }
+    .source-line { color: var(--muted); font-size: 12px; }
+
+    .note {
+      padding: 18px 22px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .hero, .brief-grid { grid-template-columns: 1fr; }
+      .market-ribbon { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 640px) {
       .topbar-inner { align-items: flex-start; flex-direction: column; padding: 14px 0; }
       .updated { text-align: left; }
-      .hero, .brief-grid { grid-template-columns: 1fr; }
-      .headline, .brief { padding: 20px; }
+      .headline { padding: 20px; }
+      .market-ribbon, .module-grid, .sector-board { grid-template-columns: 1fr; }
       .brief-header { flex-direction: column; }
       .brief-time { text-align: left; min-width: 0; }
+      .word-cloud { min-height: 148px; }
     }
   </style>
 </head>
@@ -135,18 +294,19 @@
 
   <main>
     <section class="hero" aria-labelledby="page-title">
-      <div class="headline">
-        <h1 id="page-title">每日市场简报</h1>
-        <p class="dek">这里汇总 Codex Automation 每天生成的 A股港股早报与美股盘前简报。内容按事实、判断、不确定性、关注方向和风险点组织，方便快速浏览与复盘。</p>
+      <div class="headline panel">
+        <h1 id="page-title">每日市场图文简报</h1>
+        <p class="dek">把 Codex Automation 生成的 A股港股早报与美股盘前简报整理成模块化仪表盘：结论先行、资产联动、板块轮动、逻辑链、风险雷达和关键词云图一屏呈现。</p>
         <div class="tag-row" aria-label="内容标签">
           <span class="tag">A股</span>
           <span class="tag">港股</span>
           <span class="tag">美股盘前</span>
           <span class="tag">科技股</span>
-          <span class="tag">宏观与资产</span>
+          <span class="tag">关键词云</span>
+          <span class="tag">风险雷达</span>
         </div>
       </div>
-      <aside class="status-panel" aria-label="更新状态">
+      <aside class="status-panel panel" aria-label="更新状态">
         <div class="status-item">
           <span class="status-label">A股港股早报</span>
           <span class="status-value"><!-- A_H_UPDATED_START -->预览样例已载入<!-- A_H_UPDATED_END --></span>
@@ -162,69 +322,146 @@
       </aside>
     </section>
 
+    <section class="market-ribbon" aria-label="页面模块说明">
+      <div class="ribbon-card panel"><span>Topline</span><strong>结论先行</strong><small>先看方向，再看证据链</small></div>
+      <div class="ribbon-card panel"><span>Cross Asset</span><strong>资产联动</strong><small>股债汇商压缩成条形图</small></div>
+      <div class="ribbon-card panel"><span>Rotation</span><strong>板块轮动</strong><small>机会与风险分区展示</small></div>
+      <div class="ribbon-card panel"><span>Word Cloud</span><strong>关键词云图</strong><small>每天自动更新热词权重</small></div>
+    </section>
+
     <section class="brief-grid" aria-label="每日简报">
-      <article class="brief" id="a-h-brief">
+      <article class="brief panel" id="a-h-brief">
         <div class="brief-header">
           <div>
             <div class="brief-kicker">Asia Morning</div>
             <h2>A股港股早报</h2>
           </div>
-          <div class="brief-time"><!-- A_H_TIME_START -->2026-06-24 14:40 CST · 预览<!-- A_H_TIME_END --></div>
+          <div class="brief-time"><!-- A_H_TIME_START -->2026-06-24 15:05 CST · 预览<!-- A_H_TIME_END --></div>
         </div>
         <div class="brief-content">
 <!-- A_H_BRIEF_START -->
-          <div class="preview-note"><strong>页面预览样例：</strong>这不是正式市场简报，只用于检查 Vercel 页面载入后的排版。下一次 A股港股早报 automation 会替换本区块。</div>
-          <h3>市场总览</h3>
-          <p><strong>事实：</strong>本区块用于展示工作日早间 A股、港股与恒生科技方向的自动化摘要。</p>
-          <p><strong>判断：</strong>正式运行时，这里会把隔夜美股、美元、美债、商品、汇率和政策消息整合成开盘前情景判断。</p>
-          <h3>关键事实</h3>
-          <ul>
-            <li>宏观与政策消息会按来源和时间点列出。</li>
-            <li>隔夜外盘和关键资产表现会被压缩成可扫读要点。</li>
-            <li>财报、公告和行业新闻会优先映射到相关板块。</li>
-          </ul>
-          <h3>板块与个股关注</h3>
-          <ul>
-            <li><span class="watch">科技成长：</span>正式内容会列出催化、估值和交易拥挤度风险。</li>
-            <li><span class="positive">受益方向：</span>会说明推荐理由和验证条件。</li>
-            <li><span class="negative">风险方向：</span>会说明利空链条与止损观察点。</li>
-          </ul>
-          <h3>风险与不确定性</h3>
-          <p>正式简报会把事实、判断和不确定性拆开，避免把推演写成结论。</p>
+          <div class="brief-dashboard">
+            <div class="preview-note"><strong>页面预览样例：</strong>这不是正式市场观点，只用于检查模块化图文排版。下一次 A股港股早报 automation 会替换本区块。</div>
+            <section class="module takeaway full">
+              <h3>今日结论</h3>
+              <p><strong>事实：</strong>本模块会把隔夜外盘、政策、财报和关键资产压缩成早盘可读摘要。</p>
+              <p><strong>判断：</strong>正式运行时会给出 A股、港股和恒生科技开盘路径，明确哪些是事实，哪些是推演。</p>
+            </section>
+            <div class="module-grid">
+              <section class="module">
+                <h3>关键资产图</h3>
+                <div class="asset-strip">
+                  <div class="asset-row"><span>美股期指</span><div class="bar up"><i style="width:68%"></i></div><b class="positive">偏强</b></div>
+                  <div class="asset-row"><span>美元指数</span><div class="bar neutral"><i style="width:52%"></i></div><b>中性</b></div>
+                  <div class="asset-row"><span>美债利率</span><div class="bar down"><i style="width:58%"></i></div><b class="negative">压制</b></div>
+                  <div class="asset-row"><span>商品资源</span><div class="bar up"><i style="width:61%"></i></div><b class="positive">支撑</b></div>
+                </div>
+              </section>
+              <section class="module">
+                <h3>关键词云图</h3>
+                <div class="word-cloud" aria-label="A股港股关键词云">
+                  <span class="w5">恒生科技</span><span class="w4">AI链</span><span class="w3">政策预期</span><span class="w3">半导体</span><span class="w2">人民币</span><span class="w2">南向资金</span><span class="w1">财报</span><span class="w1">风险偏好</span><span class="w2">消费电子</span><span class="w1">美债</span>
+                </div>
+              </section>
+            </div>
+            <section class="module full">
+              <h3>板块轮动看板</h3>
+              <div class="sector-board">
+                <div class="sector-tile"><b class="positive">受益方向</b><span>科技成长、AI 应用、恒生科技龙头。</span></div>
+                <div class="sector-tile"><b class="watch">观察方向</b><span>券商、消费电子、创新药等待量能确认。</span></div>
+                <div class="sector-tile"><b class="negative">压力方向</b><span>高拥挤交易和受利率压制的长久期资产。</span></div>
+                <div class="sector-tile"><b>验证信号</b><span>开盘 30 分钟成交额、北向/南向节奏和指数权重表现。</span></div>
+              </div>
+            </section>
+            <section class="module full">
+              <h3>逻辑链</h3>
+              <div class="logic-chain">
+                <div class="logic-step">隔夜风险偏好改善，给成长风格提供开盘情绪。</div>
+                <div class="logic-step">若汇率与美债稳定，港股科技弹性通常更高。</div>
+                <div class="logic-step">如果量能不足，板块轮动可能快于指数趋势。</div>
+              </div>
+            </section>
+            <section class="module full">
+              <h3>风险雷达</h3>
+              <div class="risk-list">
+                <div class="risk-item"><i class="risk-dot high"></i><span>海外利率重新上行可能压制成长估值。</span></div>
+                <div class="risk-item"><i class="risk-dot"></i><span>政策预期兑现不及预期时，主题交易容易回撤。</span></div>
+                <div class="risk-item"><i class="risk-dot low"></i><span>若资金面继续改善，回撤可能更偏结构性。</span></div>
+              </div>
+              <p class="source-line">数据来源与时间点：预览样例，正式运行时由 automation 标注。</p>
+            </section>
+          </div>
 <!-- A_H_BRIEF_END -->
         </div>
       </article>
 
-      <article class="brief" id="us-brief">
+      <article class="brief panel" id="us-brief">
         <div class="brief-header">
           <div>
             <div class="brief-kicker">US Premarket</div>
             <h2>美股盘前简报</h2>
           </div>
-          <div class="brief-time"><!-- US_TIME_START -->2026-06-24 14:40 CST · 预览<!-- US_TIME_END --></div>
+          <div class="brief-time"><!-- US_TIME_START -->2026-06-24 15:05 CST · 预览<!-- US_TIME_END --></div>
         </div>
         <div class="brief-content">
 <!-- US_BRIEF_START -->
-          <div class="preview-note"><strong>页面预览样例：</strong>这不是正式美股盘前观点，只用于检查页面视觉效果。下一次美股盘前 automation 会替换本区块。</div>
-          <h3>盘前总览</h3>
-          <p><strong>事实：</strong>本区块用于展示美股开盘前指数期货、美元、美债、商品和科技股新闻的自动化摘要。</p>
-          <p><strong>判断：</strong>正式运行时，这里会把盘前行情、财报和行业催化组织成开盘路径推演。</p>
-          <h3>关键事实</h3>
-          <ul>
-            <li>指数期货、收益率、美元和油金铜等资产会按时间点标注。</li>
-            <li>大型科技股、半导体、AI、软件和消费互联网会单独筛选重点新闻。</li>
-            <li>盘后财报公司会按预期差、指引风险和近期修正拆分。</li>
-          </ul>
-          <h3>盘后财报 beat 概率</h3>
-          <p><span class="watch">正式内容：</span>会用“高 / 中 / 低”这样的主观概率分层，并说明依据不是确定性预测。</p>
-          <h3>风险与不确定性</h3>
-          <p>正式简报会明确哪些来自可验证事实，哪些是基于已知信息的交易判断。</p>
+          <div class="brief-dashboard">
+            <div class="preview-note"><strong>页面预览样例：</strong>这不是正式美股盘前观点，只用于检查模块化图文排版。下一次美股盘前 automation 会替换本区块。</div>
+            <section class="module takeaway full">
+              <h3>盘前结论</h3>
+              <p><strong>事实：</strong>本模块会整合指数期货、收益率、美元、商品、科技股新闻和盘后财报日程。</p>
+              <p><strong>判断：</strong>正式运行时会给出开盘路径、板块强弱和财报 beat 概率分层。</p>
+            </section>
+            <div class="module-grid">
+              <section class="module">
+                <h3>关键资产图</h3>
+                <div class="asset-strip">
+                  <div class="asset-row"><span>纳指期货</span><div class="bar up"><i style="width:72%"></i></div><b class="positive">偏强</b></div>
+                  <div class="asset-row"><span>10Y 美债</span><div class="bar down"><i style="width:63%"></i></div><b class="negative">压制</b></div>
+                  <div class="asset-row"><span>美元</span><div class="bar neutral"><i style="width:48%"></i></div><b>中性</b></div>
+                  <div class="asset-row"><span>原油</span><div class="bar up"><i style="width:56%"></i></div><b class="watch">扰动</b></div>
+                </div>
+              </section>
+              <section class="module">
+                <h3>关键词云图</h3>
+                <div class="word-cloud" aria-label="美股盘前关键词云">
+                  <span class="w5">AI Capex</span><span class="w4">Mag 7</span><span class="w3">半导体</span><span class="w3">收益率</span><span class="w2">财报指引</span><span class="w2">云服务</span><span class="w1">美元</span><span class="w1">油价</span><span class="w2">软件</span><span class="w1">估值</span>
+                </div>
+              </section>
+            </div>
+            <section class="module full">
+              <h3>板块轮动看板</h3>
+              <div class="sector-board">
+                <div class="sector-tile"><b class="positive">强势观察</b><span>AI 基建、半导体设备、大型平台股。</span></div>
+                <div class="sector-tile"><b class="watch">事件驱动</b><span>盘后财报、分析师上调、产品发布。</span></div>
+                <div class="sector-tile"><b class="negative">压力方向</b><span>利率敏感型软件和高估值未盈利成长股。</span></div>
+                <div class="sector-tile"><b>验证信号</b><span>开盘后 15 分钟量价、VIX、收益率和美元同步变化。</span></div>
+              </div>
+            </section>
+            <section class="module full">
+              <h3>盘后财报 beat 概率</h3>
+              <div class="logic-chain">
+                <div class="logic-step">先对比市场一致预期、近期上修和管理层指引。</div>
+                <div class="logic-step">再判断行业景气与同业财报是否形成顺风。</div>
+                <div class="logic-step">最后给出高 / 中 / 低概率，并明确不是确定性预测。</div>
+              </div>
+            </section>
+            <section class="module full">
+              <h3>风险雷达</h3>
+              <div class="risk-list">
+                <div class="risk-item"><i class="risk-dot high"></i><span>收益率快速上行会压缩科技股估值弹性。</span></div>
+                <div class="risk-item"><i class="risk-dot"></i><span>盘前强势若缺少成交确认，开盘后可能回落。</span></div>
+                <div class="risk-item"><i class="risk-dot low"></i><span>若财报预期持续上修，指数回撤可能被买盘承接。</span></div>
+              </div>
+              <p class="source-line">数据来源与时间点：预览样例，正式运行时由 automation 标注。</p>
+            </section>
+          </div>
 <!-- US_BRIEF_END -->
         </div>
       </article>
     </section>
 
-    <p class="note">提示：本页面为自动生成的信息整理，不构成投资建议。市场数据与新闻可能快速变化，请结合交易时点和原始来源复核。</p>
+    <p class="note panel">提示：本页面为自动生成的信息整理，不构成投资建议。市场数据与新闻可能快速变化，请结合交易时点和原始来源复核。</p>
   </main>
 </body>
 </html>
