@@ -19,9 +19,7 @@
       --bad: #b42318;
       --shadow: 0 16px 45px rgba(20, 31, 44, 0.08);
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
@@ -29,7 +27,6 @@
       color: var(--ink);
       line-height: 1.62;
     }
-
     .topbar {
       border-bottom: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.92);
@@ -38,13 +35,10 @@
       z-index: 10;
       backdrop-filter: blur(14px);
     }
-
-    .topbar-inner,
-    main {
+    .topbar-inner, main {
       width: min(1160px, calc(100% - 32px));
       margin: 0 auto;
     }
-
     .topbar-inner {
       min-height: 64px;
       display: flex;
@@ -52,28 +46,10 @@
       justify-content: space-between;
       gap: 16px;
     }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
-
-    .brand strong {
-      font-size: 18px;
-      letter-spacing: 0;
-    }
-
-    .brand span,
-    .updated {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    main {
-      padding: 32px 0 48px;
-    }
-
+    .brand { display: flex; flex-direction: column; gap: 1px; }
+    .brand strong { font-size: 18px; letter-spacing: 0; }
+    .brand span, .updated { color: var(--muted); font-size: 13px; }
+    main { padding: 32px 0 48px; }
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
@@ -81,102 +57,28 @@
       align-items: stretch;
       margin-bottom: 22px;
     }
-
-    .headline,
-    .status-panel,
-    .brief,
-    .note {
+    .headline, .status-panel, .brief, .note {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 8px;
       box-shadow: var(--shadow);
     }
-
-    .headline {
-      padding: 28px;
-    }
-
-    h1,
-    h2,
-    h3,
-    p {
-      margin-top: 0;
-    }
-
-    h1 {
-      margin-bottom: 12px;
-      font-size: clamp(28px, 4vw, 48px);
-      line-height: 1.12;
-      letter-spacing: 0;
-    }
-
-    h2 {
-      font-size: 22px;
-      margin-bottom: 14px;
-      letter-spacing: 0;
-    }
-
-    h3 {
-      font-size: 17px;
-      margin: 22px 0 8px;
-      letter-spacing: 0;
-    }
-
+    .headline { padding: 28px; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 12px; font-size: clamp(28px, 4vw, 48px); line-height: 1.12; letter-spacing: 0; }
+    h2 { font-size: 22px; margin-bottom: 14px; letter-spacing: 0; }
+    h3 { font-size: 17px; margin: 22px 0 8px; letter-spacing: 0; }
     p { margin-bottom: 12px; }
-
-    ul, ol {
-      padding-left: 1.35rem;
-      margin: 8px 0 16px;
-    }
-
+    ul, ol { padding-left: 1.35rem; margin: 8px 0 16px; }
     li + li { margin-top: 6px; }
-
-    .dek {
-      color: var(--muted);
-      max-width: 840px;
-      font-size: 16px;
-    }
-
-    .status-panel {
-      padding: 22px;
-      display: grid;
-      gap: 14px;
-      align-content: start;
-    }
-
-    .status-item {
-      border-top: 1px solid var(--line);
-      padding-top: 12px;
-    }
-
-    .status-item:first-child {
-      border-top: 0;
-      padding-top: 0;
-    }
-
-    .status-label {
-      color: var(--muted);
-      display: block;
-      font-size: 12px;
-      margin-bottom: 2px;
-    }
-
-    .status-value {
-      font-weight: 650;
-      font-size: 15px;
-    }
-
-    .brief-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .brief {
-      padding: 24px;
-      min-width: 0;
-    }
-
+    .dek { color: var(--muted); max-width: 840px; font-size: 16px; }
+    .status-panel { padding: 22px; display: grid; gap: 14px; align-content: start; }
+    .status-item { border-top: 1px solid var(--line); padding-top: 12px; }
+    .status-item:first-child { border-top: 0; padding-top: 0; }
+    .status-label { color: var(--muted); display: block; font-size: 12px; margin-bottom: 2px; }
+    .status-value { font-weight: 650; font-size: 15px; }
+    .brief-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .brief { padding: 24px; min-width: 0; }
     .brief-header {
       display: flex;
       align-items: flex-start;
@@ -186,36 +88,9 @@
       padding-bottom: 14px;
       margin-bottom: 18px;
     }
-
-    .brief-kicker {
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .brief-time {
-      color: var(--muted);
-      font-size: 12px;
-      text-align: right;
-      min-width: 120px;
-    }
-
-    .placeholder {
-      color: var(--muted);
-      border: 1px dashed var(--line);
-      border-radius: 8px;
-      padding: 16px;
-      background: #fbfcfd;
-    }
-
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 14px 0 0;
-    }
-
+    .brief-kicker { color: var(--accent); font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .brief-time { color: var(--muted); font-size: 12px; text-align: right; min-width: 120px; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
     .tag {
       border: 1px solid var(--line);
       border-radius: 999px;
@@ -224,19 +99,19 @@
       font-size: 12px;
       background: #fbfcfd;
     }
-
-    .note {
-      padding: 18px 22px;
-      margin-top: 20px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
+    .note { padding: 18px 22px; margin-top: 20px; color: var(--muted); font-size: 13px; }
     .brief-content strong { color: var(--ink); }
     .brief-content .positive { color: var(--good); font-weight: 650; }
     .brief-content .negative { color: var(--bad); font-weight: 650; }
     .brief-content .watch { color: var(--accent-2); font-weight: 650; }
-
+    .preview-note {
+      border-left: 4px solid var(--accent-2);
+      background: #fff8ed;
+      padding: 10px 12px;
+      color: #704214;
+      margin-bottom: 14px;
+      border-radius: 6px;
+    }
     @media (max-width: 820px) {
       .topbar-inner { align-items: flex-start; flex-direction: column; padding: 14px 0; }
       .updated { text-align: left; }
@@ -274,11 +149,11 @@
       <aside class="status-panel" aria-label="更新状态">
         <div class="status-item">
           <span class="status-label">A股港股早报</span>
-          <span class="status-value"><!-- A_H_UPDATED_START -->等待首次更新<!-- A_H_UPDATED_END --></span>
+          <span class="status-value"><!-- A_H_UPDATED_START -->预览样例已载入<!-- A_H_UPDATED_END --></span>
         </div>
         <div class="status-item">
           <span class="status-label">美股盘前简报</span>
-          <span class="status-value"><!-- US_UPDATED_START -->等待首次更新<!-- US_UPDATED_END --></span>
+          <span class="status-value"><!-- US_UPDATED_START -->预览样例已载入<!-- US_UPDATED_END --></span>
         </div>
         <div class="status-item">
           <span class="status-label">发布方式</span>
@@ -294,11 +169,28 @@
             <div class="brief-kicker">Asia Morning</div>
             <h2>A股港股早报</h2>
           </div>
-          <div class="brief-time"><!-- A_H_TIME_START -->尚未生成<!-- A_H_TIME_END --></div>
+          <div class="brief-time"><!-- A_H_TIME_START -->2026-06-24 14:40 CST · 预览<!-- A_H_TIME_END --></div>
         </div>
         <div class="brief-content">
 <!-- A_H_BRIEF_START -->
-          <div class="placeholder">等待 Codex Automation 写入今日 A股港股早报。</div>
+          <div class="preview-note"><strong>页面预览样例：</strong>这不是正式市场简报，只用于检查 Vercel 页面载入后的排版。下一次 A股港股早报 automation 会替换本区块。</div>
+          <h3>市场总览</h3>
+          <p><strong>事实：</strong>本区块用于展示工作日早间 A股、港股与恒生科技方向的自动化摘要。</p>
+          <p><strong>判断：</strong>正式运行时，这里会把隔夜美股、美元、美债、商品、汇率和政策消息整合成开盘前情景判断。</p>
+          <h3>关键事实</h3>
+          <ul>
+            <li>宏观与政策消息会按来源和时间点列出。</li>
+            <li>隔夜外盘和关键资产表现会被压缩成可扫读要点。</li>
+            <li>财报、公告和行业新闻会优先映射到相关板块。</li>
+          </ul>
+          <h3>板块与个股关注</h3>
+          <ul>
+            <li><span class="watch">科技成长：</span>正式内容会列出催化、估值和交易拥挤度风险。</li>
+            <li><span class="positive">受益方向：</span>会说明推荐理由和验证条件。</li>
+            <li><span class="negative">风险方向：</span>会说明利空链条与止损观察点。</li>
+          </ul>
+          <h3>风险与不确定性</h3>
+          <p>正式简报会把事实、判断和不确定性拆开，避免把推演写成结论。</p>
 <!-- A_H_BRIEF_END -->
         </div>
       </article>
@@ -309,11 +201,24 @@
             <div class="brief-kicker">US Premarket</div>
             <h2>美股盘前简报</h2>
           </div>
-          <div class="brief-time"><!-- US_TIME_START -->尚未生成<!-- US_TIME_END --></div>
+          <div class="brief-time"><!-- US_TIME_START -->2026-06-24 14:40 CST · 预览<!-- US_TIME_END --></div>
         </div>
         <div class="brief-content">
 <!-- US_BRIEF_START -->
-          <div class="placeholder">等待 Codex Automation 写入今日美股盘前简报。</div>
+          <div class="preview-note"><strong>页面预览样例：</strong>这不是正式美股盘前观点，只用于检查页面视觉效果。下一次美股盘前 automation 会替换本区块。</div>
+          <h3>盘前总览</h3>
+          <p><strong>事实：</strong>本区块用于展示美股开盘前指数期货、美元、美债、商品和科技股新闻的自动化摘要。</p>
+          <p><strong>判断：</strong>正式运行时，这里会把盘前行情、财报和行业催化组织成开盘路径推演。</p>
+          <h3>关键事实</h3>
+          <ul>
+            <li>指数期货、收益率、美元和油金铜等资产会按时间点标注。</li>
+            <li>大型科技股、半导体、AI、软件和消费互联网会单独筛选重点新闻。</li>
+            <li>盘后财报公司会按预期差、指引风险和近期修正拆分。</li>
+          </ul>
+          <h3>盘后财报 beat 概率</h3>
+          <p><span class="watch">正式内容：</span>会用“高 / 中 / 低”这样的主观概率分层，并说明依据不是确定性预测。</p>
+          <h3>风险与不确定性</h3>
+          <p>正式简报会明确哪些来自可验证事实，哪些是基于已知信息的交易判断。</p>
 <!-- US_BRIEF_END -->
         </div>
       </article>
