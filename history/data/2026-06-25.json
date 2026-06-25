@@ -1,0 +1,10 @@
+{
+  "date": "2026-06-25",
+  "title": "2026-06-25 市场简报归档",
+  "updated": "A/H 08:55 CST · US 2026-06-24 21:02 CST",
+  "summary": "A股港股早报 + 最新美股盘前",
+  "entries": [
+    {"type":"A/H","label":"A股港股早报","html":"<section class=\"module full\"><h3>今日结论</h3><p><strong>事实：</strong>6月24日 A股和港股从前一日急跌后修复；隔夜美股纳指仍跌，但美光盘后大涨，08:54 CST 标普期货 +0.42%，恒指期货 -0.30%。</p><p><strong>判断：</strong>今天 A股大概率是高开/平开后震荡修复，科技成长强于大盘价值；港股则受恒指期货偏弱和半导体利好对冲，恒生科技可能先冲高。</p></section><section class=\"module full\"><h3>风险雷达</h3><div class=\"risk-list\"><div class=\"risk-item\"><i class=\"risk-dot high\"></i><span>MU 利好被港股半导体昨日涨幅提前计价，导致开盘冲高后兑现。</span></div><div class=\"risk-item\"><i class=\"risk-dot high\"></i><span>中东/伊朗消息反复推升油价，重新压制通胀预期和风险偏好。</span></div></div></section>"},
+    {"type":"US","label":"美股盘前简报","html":"<section class=\"module full\"><h3>盘前结论</h3><p><strong>事实：</strong>盘前美股期指在两天科技股回撤后小幅反弹，油价因中东风险暂缓继续回落，但 10Y 美债仍在约 4.50%附近。</p><p><strong>判断：</strong>今天开盘后大盘更可能是弱修复加震荡，而不是直接恢复趋势上攻。</p></section>"}
+  ]
+}
