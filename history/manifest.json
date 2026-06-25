@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-25T00:00:00+08:00",
+  "generatedAt": "2026-06-25T21:08:00+08:00",
   "records": [
-    {"date":"2026-06-25","types":["A/H","US"],"title":"A股港股早报 + 最新美股盘前"},
+    {"date":"2026-06-25","types":["A/H","US"],"title":"A股港股早报 + 美股盘前：MU 财报后科技修复"},
     {"date":"2026-06-24","types":["US"],"title":"美股盘前两版归档"},
     {"date":"2026-06-22","types":["US"],"title":"Juneteenth 后首个交易日"},
     {"date":"2026-06-19","types":["US"],"title":"美股休市预案"},
