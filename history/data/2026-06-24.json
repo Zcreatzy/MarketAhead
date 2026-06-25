@@ -1,0 +1,10 @@
+{
+  "date": "2026-06-24",
+  "title": "2026-06-24 美股盘前归档",
+  "updated": "15:21 CST / 21:02 CST",
+  "summary": "美股盘前两版归档",
+  "entries": [
+    {"type":"US","label":"21:02 CST 版本","html":"<section class=\"module full\"><h3>主线</h3><p>中东/霍尔木兹风险缓和但未解除，油价回落、10Y 美债约 4.50%，美股期指小幅反弹但半导体等待 MU 盘后验证；新增强调 QCOM 收购 Modular、GOOGL 将加入道指、FDX 与 CBRS “beat 但股价跌”、KBH EPS miss。</p></section><section class=\"module full\"><h3>盘后财报 beat 判断</h3><p>MU 被列为高概率，但明确写成基于一致预期、历史 surprise、卖方修正、近期指引和行业景气的判断，不作为事实陈述。</p></section>"},
+    {"type":"US","label":"15:21 CST 版本","html":"<section class=\"module full\"><h3>主线</h3><p>AI/半导体全球回撤、Nasdaq 跌破短期支撑、10Y 美债约 4.50%、油价因美伊/霍尔木兹谈判进展回落但航运安全未完全正常化。重点覆盖 FedEx、Cerebras、KB Home、Carnival 财报，以及 MU、NVDA、GOOGL、CBRS、FTNT。</p></section>"}
+  ]
+}
