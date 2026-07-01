@@ -25,11 +25,16 @@
     return '<details class="panel entry" open><summary>'+esc(entry.label || entry.type || '简报')+'</summary><div class="entry-body">'+(entry.html || '')+'</div></details>';
   }
   function cleanNewsTitlePrefixes(scope){
-    var titles = Array.prototype.slice.call((scope || document).querySelectorAll('.news-title'));
-    titles.forEach(function(title){
-      var text = title.textContent || '';
+    var root = scope || document;
+    var nodes = Array.prototype.slice.call(root.querySelectorAll('.news-title,.stock-name,[class*="title"],[class*="headline"],[class*="flash"],[class*="news"]'));
+    nodes = nodes.concat(Array.prototype.slice.call(root.querySelectorAll('*')).filter(function(el){
+      return el.children.length === 0 && (el.textContent || '').length < 120;
+    }));
+    nodes.forEach(function(node){
+      if(/^(SCRIPT|STYLE|TIME|CODE)$/i.test(node.tagName)){return;}
+      var text = node.textContent || '';
       var cleaned = text.replace(/^\s*(?:\d{1,2})?[:：]\d{2,4}\s*/, '').replace(/^\s*\d{1,2}[.、]\s*/, '');
-      if(cleaned && cleaned !== text){title.textContent = cleaned;}
+      if(cleaned && cleaned !== text){node.textContent = cleaned;}
     });
   }
   function render(data){
