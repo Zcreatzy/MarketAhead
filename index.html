@@ -115,9 +115,9 @@
     .news-item:hover{transform:translateX(2px);border-color:rgba(0,116,129,.28);box-shadow:0 12px 24px rgba(24,39,52,.08)}
     .news-tag{border-radius:999px;padding:3px 8px;text-align:center;font-size:12px;font-weight:750}.news-tag.geo{background:#fff0ee;color:var(--red)}.news-tag.tech{background:#eef6f3;color:var(--green)}.news-tag.earn{background:#fff6e8;color:var(--amber)}
     .news-item>div{min-width:0}.news-title{font-weight:740;overflow-wrap:anywhere}.news-detail{color:var(--muted);font-size:13px;margin-top:2px}
-    .asset-strip{display:grid;gap:8px}.asset-row{display:grid;grid-template-columns:86px minmax(120px,.72fr) minmax(92px,.28fr);align-items:center;gap:8px;font-size:13px}.asset-row b{min-width:0;overflow-wrap:anywhere;line-height:1.35}.bar{height:9px;border-radius:999px;background:#e7edf3;overflow:hidden;box-shadow:inset 0 1px 2px rgba(20,31,44,.10)}.bar i{display:block;height:100%;border-radius:inherit;animation:barSweep .8s ease both}.bar:not(:has(i))::before{content:"";display:block;height:100%;width:var(--w,50%);border-radius:inherit;animation:barSweep .8s ease both}.bar.up i,.bar.up::before{background:linear-gradient(90deg,var(--green),#39ff88)}.bar.down i,.bar.down::before{background:linear-gradient(90deg,var(--red),#ff7a70)}.bar.neutral i,.bar.neutral::before{background:linear-gradient(90deg,var(--amber),#ffd166)}
+    .asset-strip{display:grid;gap:8px}.asset-row{display:grid;grid-template-columns:86px minmax(0,1fr) 64px;align-items:center;gap:8px;font-size:13px}.bar{height:9px;border-radius:999px;background:#e7edf3;overflow:hidden;box-shadow:inset 0 1px 2px rgba(20,31,44,.10)}.bar i{display:block;height:100%;border-radius:inherit;animation:barSweep .8s ease both}.bar.up i{background:linear-gradient(90deg,var(--green),#39ff88)}.bar.down i{background:linear-gradient(90deg,var(--red),#ff7a70)}.bar.neutral i{background:linear-gradient(90deg,var(--amber),#ffd166)}
     .sector-board,.stock-picks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stock-picks{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.sector-tile,.stock-card{border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.86);padding:10px;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}.sector-tile:hover,.stock-card:hover{transform:translateY(-2px);border-color:rgba(0,116,129,.28);box-shadow:0 14px 26px rgba(24,39,52,.09)}.stock-card{min-height:138px}.sector-tile b{display:block;font-size:13px;margin-bottom:4px}.sector-tile span{color:var(--muted);font-size:12px}.stock-head{display:flex;justify-content:space-between;gap:8px;align-items:start;margin-bottom:8px}.stock-name{font-weight:760}.stock-ticker{color:var(--muted);font-size:12px}.stock-badge{border-radius:999px;padding:2px 8px;font-size:12px;background:#eef6f3;color:var(--green);white-space:nowrap}.stock-badge.watch{background:#fff6e8;color:var(--amber)}.stock-badge.risk{background:#fff0ee;color:var(--red)}.stock-card p{font-size:13px;margin:0 0 7px}
-    .logic-chain{display:grid;gap:8px;counter-reset:chain}.logic-step{display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;font-size:13px;align-items:start}.logic-step:before{counter-increment:chain;content:counter(chain);width:24px;height:24px;display:grid;place-items:center;border-radius:999px;background:linear-gradient(135deg,#e8f5f6,#fff);color:var(--teal);font-weight:750;box-shadow:0 6px 14px rgba(0,116,129,.12)}.logic-step>div,.logic-step>p{grid-column:2;min-width:0;margin:0;overflow-wrap:anywhere}.logic-step>b{display:none}
+    .logic-chain{display:grid;gap:8px;counter-reset:chain}.logic-step{display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;font-size:13px;align-items:start}.logic-step:before{counter-increment:chain;content:counter(chain);width:24px;height:24px;display:grid;place-items:center;border-radius:999px;background:linear-gradient(135deg,#e8f5f6,#fff);color:var(--teal);font-weight:750;box-shadow:0 6px 14px rgba(0,116,129,.12)}
     .word-cloud{min-height:184px;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:8px 12px;padding:12px;border-radius:8px;background:rgba(255,255,255,.82);border:1px solid var(--line);overflow:visible}.word-cloud span{display:inline-block;position:relative;padding:3px 4px;border-radius:5px;font-weight:780;line-height:1;white-space:nowrap;cursor:help;outline:none;transition:transform .18s ease,text-shadow .18s ease}.word-cloud span:hover,.word-cloud span:focus{transform:translateY(-2px) scale(1.04);text-shadow:0 8px 18px rgba(20,31,44,.14)}.word-cloud span[data-note]:hover:after,.word-cloud span[data-note]:focus:after{content:attr(data-note);position:absolute;z-index:20;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);width:min(270px,72vw);padding:10px 12px;border-radius:8px;background:#17212b;color:#fff;box-shadow:0 12px 28px rgba(21,29,38,.24);font-size:12px;font-weight:520;line-height:1.45;text-align:left;white-space:normal}.word-cloud .w1{font-size:13px;opacity:.78}.word-cloud .w2{font-size:16px}.word-cloud .w3{font-size:20px}.word-cloud .w4{font-size:25px}.word-cloud .w5{font-size:31px}.word-cloud .bull{color:var(--green)}.word-cloud .bear{color:var(--red)}.word-cloud .neutral{color:#d89b00}.cloud-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:10px;color:var(--muted);font-size:12px}.cloud-legend i{width:8px;height:8px;display:inline-block;border-radius:999px;margin-right:5px}.bull-dot{background:var(--green)}.bear-dot{background:var(--red)}.neutral-dot{background:#eab308}
     .risk-list{display:grid;gap:8px}.risk-item{display:grid;grid-template-columns:8px minmax(0,1fr);gap:8px;font-size:13px}.risk-dot{width:8px;height:8px;border-radius:999px;margin-top:7px;background:var(--amber);box-shadow:0 0 0 4px rgba(180,83,9,.10)}.risk-dot.high{background:var(--red);box-shadow:0 0 0 4px rgba(180,35,24,.10)}.risk-dot.low{background:var(--green);box-shadow:0 0 0 4px rgba(8,127,91,.10)}.positive{color:var(--green);font-weight:700}.negative{color:var(--red);font-weight:700}.watch{color:var(--amber);font-weight:700}.source-line{color:var(--muted);font-size:12px}.note{padding:18px 22px;margin-top:18px;color:var(--muted);font-size:13px}.empty{padding:18px;color:var(--muted)}
     @keyframes barSweep{from{transform:scaleX(.12);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
@@ -149,30 +149,24 @@
     <article class="brief panel" id="a-h-brief"><div class="brief-header"><div><div class="brief-kicker">Asia Morning</div><h2>A股港股早报</h2></div><div class="brief-time" id="ah-time"><!-- A_H_TIME_START -->
 2026-07-02 08:55 CST
 <!-- A_H_TIME_END --></div></div><div class="brief-content" id="ah-content"><!-- A_H_BRIEF_START -->
-<section class="brief-dashboard">
-  <p class="preview-note">面向投资者的 A股港股早报，更新时间：2026-07-02 08:55 CST。事实、判断和不确定性分列；个股为短线观察方向，不构成确定收益承诺。</p>
-  <section class="module">
-    <h2>重大新闻汇总</h2>
-    <div class="news-list">
-      <article class="news-item"><span class="news-tag geo">国际</span><div><h3 class="news-title">中东紧张缓和压低油价，但霍尔木兹通行仍低于常态</h3><p class="news-detail">事实：7月2日亚洲早盘 WTI 约 68 美元附近，市场交易供应恢复和美伊降温。判断：A/H 航运、航空、化工成本端压力边际缓和；不确定性在于通行量若再受扰动，油气和避险资产会重新定价。</p></div></article>
-      <article class="news-item"><span class="news-tag geo">国际</span><div><h3 class="news-title">美国制造业偏弱使利率压力短线缓和</h3><p class="news-detail">事实：隔夜美股报道显示美国制造业数据弱于预期，美债收益率一度回落，S&P 500 -0.2%、纳指 -0.7%。判断：这对港股成长股估值有支撑，但若美元重新走强，北向和南向风险偏好仍会受压。</p></div></article>
-      <article class="news-item"><span class="news-tag tech">科技</span><div><h3 class="news-title">Moomoo Sparks 显示隔夜最强分支转向社交媒体与软件服务</h3><p class="news-detail">事实：Moomoo Sparks 前列为社交媒体 +8.70%，领涨 META +8.81%；软件外包 +3.67%，领涨 CTSH +6.04%；虚拟现实 +2.64%，同由 META 带动。映射：港股腾讯、快手、阿里、百度和 A股软件服务、消费电子/VR更受益；验证信号是恒生科技开盘能否强于恒指、腾讯/快手/百度能否放量站上昨日高点。</p></div></article>
-      <article class="news-item"><span class="news-tag tech">科技</span><div><h3 class="news-title">Meta 云服务计划刺激 AI 云与平台重估</h3><p class="news-detail">事实：媒体报道 Meta 可能出售冗余 AI 算力和模型访问，META 收涨约 8.8%。判断：利好平台型互联网的 AI 资本开支变现叙事，港股腾讯云、阿里云、百度智能云预期可能被重新讨论；风险是该消息也压制 CoreWeave/Nebius 等新云厂商估值。</p></div></article>
-      <article class="news-item"><span class="news-tag tech">科技</span><div><h3 class="news-title">半导体设备、存储与光通信隔夜明显回撤</h3><p class="news-detail">事实：Futu 美股报价显示 MU -10.57%、AMAT -9.97%、LRCX -9.71%、GLW -13.62%，AI硬件链从前期强势中获利回吐。映射：A股中芯国际、北方华创、兆易创新、长电科技及 CPO 光模块链早盘需先看承接，不宜只按前期强趋势追高。</p></div></article>
-      <article class="news-item"><span class="news-tag tech">科技</span><div><h3 class="news-title">中概互联网 ADR 与港股平台股形成正向映射</h3><p class="news-detail">事实：隔夜 BABA +2.09%、PDD +8.18%、BIDU +3.19%，美股社交媒体/平台叙事同步强化。判断：港股恒生科技今日更可能由平台权重托底，而不是由半导体单独带动；若阿里、百度、腾讯开盘高开后不回补缺口，指数弹性会更好。</p></div></article>
-      <article class="news-item"><span class="news-tag tech">科技</span><div><h3 class="news-title">软件安全和企业软件较硬件链更抗跌</h3><p class="news-detail">事实：隔夜 CRWD +1.26%、PANW +3.23%，软件外包板块在 Moomoo Sparks 中排名靠前。映射：A股信创、软件服务、网络安全若早盘强于半导体，说明资金从硬件高位切向低拥挤软件；风险是成交若不足，容易变成一日轮动。</p></div></article>
-      <article class="news-item"><span class="news-tag earn">财报</span><div><h3 class="news-title">可验证 A/H 财报结果不足，财报模块进入空窗</h3><p class="news-detail">事实：Futu HK/SH/SZ 财报日历覆盖 7月1日收盘后至 7月2日盘前均为空；NOTICE 搜索虽有 7月1日至 7月2日港交所业绩公告，但主要为非恒生科技权重或小市值港股，未发现腾讯、阿里、美团、小米、中芯国际、华虹等权重最新财报结果。处理：不使用美股公司财报补位。</p></div></article>
-    </div>
-  </section>
-  <section class="module"><h2>今日结论</h2>
-    <p><strong>事实：</strong>隔夜美股指数偏弱，但结构并不差：Moomoo Sparks 显示社交媒体、软件外包、虚拟现实和医药外包居前；同时 AI硬件链出现明显回撤，MU、AMAT、LRCX、GLW 对存储、半导体设备和光通信形成负映射。</p>
+<div class="brief-dashboard">
+<p class="preview-note">面向投资者的 A股港股早报，更新时间：2026-07-02 08:55 CST。事实、判断和不确定性分列；个股为短线观察方向，不构成确定收益承诺。</p>
+<details class="module full collapsible-news" open><summary>重大新闻汇总</summary><div class="news-list">
+      <div class="news-item"><span class="news-tag geo">国际</span><div><div class="news-title">中东紧张缓和压低油价，但霍尔木兹通行仍低于常态</div><div class="news-detail">事实：7月2日亚洲早盘 WTI 约 68 美元附近，市场交易供应恢复和美伊降温。判断：A/H 航运、航空、化工成本端压力边际缓和；不确定性在于通行量若再受扰动，油气和避险资产会重新定价。</div></div></div>
+      <div class="news-item"><span class="news-tag geo">国际</span><div><div class="news-title">美国制造业偏弱使利率压力短线缓和</div><div class="news-detail">事实：隔夜美股报道显示美国制造业数据弱于预期，美债收益率一度回落，S&P 500 -0.2%、纳指 -0.7%。判断：这对港股成长股估值有支撑，但若美元重新走强，北向和南向风险偏好仍会受压。</div></div></div>
+      <div class="news-item"><span class="news-tag tech">科技</span><div><div class="news-title">Moomoo Sparks 显示隔夜最强分支转向社交媒体与软件服务</div><div class="news-detail">事实：Moomoo Sparks 前列为社交媒体 +8.70%，领涨 META +8.81%；软件外包 +3.67%，领涨 CTSH +6.04%；虚拟现实 +2.64%，同由 META 带动。映射：港股腾讯、快手、阿里、百度和 A股软件服务、消费电子/VR更受益；验证信号是恒生科技开盘能否强于恒指、腾讯/快手/百度能否放量站上昨日高点。</div></div></div>
+      <div class="news-item"><span class="news-tag tech">科技</span><div><div class="news-title">Meta 云服务计划刺激 AI 云与平台重估</div><div class="news-detail">事实：媒体报道 Meta 可能出售冗余 AI 算力和模型访问，META 收涨约 8.8%。判断：利好平台型互联网的 AI 资本开支变现叙事，港股腾讯云、阿里云、百度智能云预期可能被重新讨论；风险是该消息也压制 CoreWeave/Nebius 等新云厂商估值。</div></div></div>
+      <div class="news-item"><span class="news-tag tech">科技</span><div><div class="news-title">半导体设备、存储与光通信隔夜明显回撤</div><div class="news-detail">事实：Futu 美股报价显示 MU -10.57%、AMAT -9.97%、LRCX -9.71%、GLW -13.62%，AI硬件链从前期强势中获利回吐。映射：A股中芯国际、北方华创、兆易创新、长电科技及 CPO 光模块链早盘需先看承接，不宜只按前期强趋势追高。</div></div></div>
+      <div class="news-item"><span class="news-tag tech">科技</span><div><div class="news-title">中概互联网 ADR 与港股平台股形成正向映射</div><div class="news-detail">事实：隔夜 BABA +2.09%、PDD +8.18%、BIDU +3.19%，美股社交媒体/平台叙事同步强化。判断：港股恒生科技今日更可能由平台权重托底，而不是由半导体单独带动；若阿里、百度、腾讯开盘高开后不回补缺口，指数弹性会更好。</div></div></div>
+      <div class="news-item"><span class="news-tag tech">科技</span><div><div class="news-title">软件安全和企业软件较硬件链更抗跌</div><div class="news-detail">事实：隔夜 CRWD +1.26%、PANW +3.23%，软件外包板块在 Moomoo Sparks 中排名靠前。映射：A股信创、软件服务、网络安全若早盘强于半导体，说明资金从硬件高位切向低拥挤软件；风险是成交若不足，容易变成一日轮动。</div></div></div>
+      <div class="news-item"><span class="news-tag earn">财报</span><div><div class="news-title">可验证 A/H 财报结果不足，财报模块进入空窗</div><div class="news-detail">事实：Futu HK/SH/SZ 财报日历覆盖 7月1日收盘后至 7月2日盘前均为空；NOTICE 搜索虽有 7月1日至 7月2日港交所业绩公告，但主要为非恒生科技权重或小市值港股，未发现腾讯、阿里、美团、小米、中芯国际、华虹等权重最新财报结果。处理：不使用美股公司财报补位。</div></div></div>
+    </div></details>
+<section class="module takeaway full"><h3>今日结论</h3><p><strong>事实：</strong>隔夜美股指数偏弱，但结构并不差：Moomoo Sparks 显示社交媒体、软件外包、虚拟现实和医药外包居前；同时 AI硬件链出现明显回撤，MU、AMAT、LRCX、GLW 对存储、半导体设备和光通信形成负映射。</p>
     <p><strong>判断：</strong>A股今日大概率延续指数震荡、内部轮动加速；港股若正常恢复交易，恒生科技更可能由平台互联网和软件服务托底。短线优先看“平台/软件强、硬件链修复验证”的组合，而不是无差别追 AI硬件。</p>
-    <p><strong>不确定性：</strong>港股 7月1日缺少正常交易收盘锚，且中东通行恢复仍有反复；如果人民币或港股期货转弱，互联网 ADR 的正映射可能被宏观风险抵消。</p>
-  </section>
-  <section class="module"><h2>关键资产图</h2><div class="asset-strip">
+    <p><strong>不确定性：</strong>港股 7月1日缺少正常交易收盘锚，且中东通行恢复仍有反复；如果人民币或港股期货转弱，互联网 ADR 的正映射可能被宏观风险抵消。</p></section>
+<div class="module-grid"><section class="module"><h3>关键资产图</h3><div class="asset-strip">
     <div class="asset-row"><span>美股大盘</span><div class="bar down"><i style="width:62%"></i></div><b class="negative">偏弱</b></div><div class="asset-row"><span>美股板块</span><div class="bar up"><i style="width:78%"></i></div><b class="positive">结构强</b></div><div class="asset-row"><span>A股前收</span><div class="bar neutral"><i style="width:54%"></i></div><b class="watch">分化</b></div><div class="asset-row"><span>港股前收</span><div class="bar neutral"><i style="width:50%"></i></div><b class="watch">假期滞后</b></div><div class="asset-row"><span>油价/地缘</span><div class="bar down"><i style="width:45%"></i></div><b class="negative">回落</b></div><div class="asset-row"><span>美元/利率</span><div class="bar neutral"><i style="width:48%"></i></div><b class="watch">缓和</b></div>
-  </div></section>
-  <section class="module"><h2>关键词云图</h2><div class="word-cloud">
+  </div></section><section class="module"><h3>关键词云图</h3><div class="word-cloud">
     <span class="w5 bull" tabindex="0" data-note="Moomoo 显示社交媒体领涨，META 云服务计划强化平台 AI 变现叙事。">社交媒体</span>
     <span class="w5 bear" tabindex="0" data-note="MU、AMAT、LRCX、GLW 大幅回撤，A/H 硬件链早盘先看承接。">硬件回撤</span>
     <span class="w4 bull" tabindex="0" data-note="CTSH 领涨软件外包，软件服务和信创可能承接部分高位硬件资金。">软件服务</span>
@@ -185,36 +179,36 @@
     <span class="w3 neutral" tabindex="0" data-note="美债压力缓和有利成长估值，但美元重新走强会压制港股弹性。">利率预期</span>
     <span class="w2 neutral" tabindex="0" data-note="A股指数强弱分化，成交和北向/南向资金决定轮动持续性。">成交验证</span>
     <span class="w2 bear" tabindex="0" data-note="港股假期后缺少连续价格锚，开盘波动可能放大。">港股缺口</span>
-  </div><div class="cloud-legend"><span class="bull">利好</span><span class="bear">利空</span><span class="neutral">中性</span><em>w1-w5 表示热度/重要性，不等于涨跌幅。</em></div></section>
-  <section class="module"><h2>重点个股推荐</h2><div class="stock-picks">
+  </div><div class="cloud-legend"><span class="bull">利好</span><span class="bear">利空</span><span class="neutral">中性</span><em>w1-w5 表示热度/重要性，不等于涨跌幅。</em></div></section></div>
+<section class="module full"><h3>重点个股推荐</h3><div class="stock-picks">
     <article class="stock-card"><div class="stock-head"><div><div class="stock-name">腾讯控股</div><div class="stock-ticker">HK.00700</div></div><span class="stock-badge positive">平台映射</span></div><p><b>推荐理由：</b>隔夜 META 云服务和社交媒体强势提高平台 AI 变现想象，腾讯同时具备社交、游戏、云与模型应用映射。</p><p><b>触发因素：</b>Moomoo 社交媒体 +8.70%，META +8.81%；港股开盘若腾讯放量强于恒指，恒科弹性可延续。</p><p><b>风险点：</b>若南向资金不足或美元转强，ADR 正映射可能被估值压力抵消。</p></article>
     <article class="stock-card"><div class="stock-head"><div><div class="stock-name">阿里巴巴-W</div><div class="stock-ticker">HK.09988</div></div><span class="stock-badge positive">云服务</span></div><p><b>推荐理由：</b>Meta 云业务传闻强化 AI 算力商业化，阿里云是港股最直接云服务映射之一。</p><p><b>触发因素：</b>BABA ADR 隔夜 +2.09%，若港股阿里高开后不回落，平台权重将托底恒科。</p><p><b>风险点：</b>国内消费与云业务兑现节奏仍需财报验证，短线易受美股云厂估值扰动。</p></article>
     <article class="stock-card"><div class="stock-head"><div><div class="stock-name">快手-W</div><div class="stock-ticker">HK.01024</div></div><span class="stock-badge watch">内容生态</span></div><p><b>推荐理由：</b>社交媒体与内容平台是隔夜最强板块，快手具备广告、电商和 AI 内容工具映射。</p><p><b>触发因素：</b>观察恒生科技恢复交易后快手是否领涨内容平台，若成交同步放大，可作为高弹性方向。</p><p><b>风险点：</b>公司未有新财报催化，若平台股只是一日 ADR 映射，追高性价比下降。</p></article>
     <article class="stock-card"><div class="stock-head"><div><div class="stock-name">金山软件</div><div class="stock-ticker">HK.03888</div></div><span class="stock-badge positive">软件轮动</span></div><p><b>推荐理由：</b>Moomoo 软件外包板块 +3.67%，隔夜软件安全/企业软件强于硬件链，港股软件应用可能获得资金切换。</p><p><b>触发因素：</b>若金山、金蝶等软件股开盘强于恒科，同时半导体承压，说明风格从硬件切向软件。</p><p><b>风险点：</b>软件板块弹性依赖成交，若没有持续资金确认，轮动可能很快衰减。</p></article>
     <article class="stock-card"><div class="stock-head"><div><div class="stock-name">中际旭创</div><div class="stock-ticker">SZ.300308</div></div><span class="stock-badge negative">只看验证</span></div><p><b>推荐理由：</b>仍是 CPO 光模块核心标的，但 GLW -13.62%、CIEN -5.73% 显示隔夜光通信链风险偏好转弱，今日不宜追高，只适合观察低开承接。</p><p><b>触发因素：</b>若早盘低开后 30-60 分钟内放量收回开盘价，说明国内资金仍愿意接硬件链。</p><p><b>风险点：</b>若跌破 7月1日低点且成交放大，可能触发高位拥挤交易继续去杠杆。</p></article>
   </div></section>
-  <section class="module"><h2>板块轮动看板</h2><div class="sector-board">
+<section class="module full"><h3>板块轮动看板</h3><div class="sector-board">
     <div class="sector-tile positive"><h3>受益方向</h3><p>港股互联网平台、云服务、软件服务、VR/消费电子、医药外包。核心依据是 Moomoo 社交媒体、软件外包、虚拟现实、医药外包居前。</p></div>
     <div class="sector-tile watch"><h3>观察方向</h3><p>A股信创/网络安全、港股软件应用、恒生科技平台权重。验证看恒科能否强于恒指、腾讯/阿里/百度是否放量。</p></div>
     <div class="sector-tile negative"><h3>压力方向</h3><p>半导体设备、存储、CPO 光通信、AI服务器高位股。MU、AMAT、LRCX、GLW 隔夜大跌是直接负映射。</p></div>
     <div class="sector-tile neutral"><h3>验证信号</h3><p>开盘 1 小时看：恒科/恒指相对强弱、A股半导体是否跌而不破、软件与平台成交是否放大、油价是否继续低位。</p></div>
   </div></section>
-  <section class="module"><h2>逻辑链</h2><div class="logic-chain">
+<section class="module full"><h3>逻辑链</h3><div class="logic-chain">
     <div class="logic-step"><div>隔夜美股指数小跌，但 Moomoo Sparks 显示社交媒体 +8.70%、软件外包 +3.67%，结构强于指数。</div></div>
     <div class="logic-step"><div>META 云服务计划带动平台 AI 变现叙事，映射港股腾讯、阿里、百度、快手和软件服务。</div></div>
     <div class="logic-step"><div>同时 MU、AMAT、LRCX、GLW 大跌，削弱 A股存储、设备、CPO 光模块的追高逻辑。</div></div>
     <div class="logic-step"><div>今日 A/H 更可能出现“平台软件修复、硬件链承压验证”的轮动，需用成交和开盘 1 小时强弱确认。</div></div>
     <div class="logic-step"><div>若中东油价或美元重新走强，港股估值修复和成长风格都会被宏观风险打断。</div></div>
   </div></section>
-  <section class="module"><h2>风险雷达</h2><div class="risk-list">
+<section class="module full"><h3>风险雷达</h3><div class="risk-list">
     <div class="risk-item"><span class="risk-dot high"></span><p>AI硬件链隔夜大跌后，A股高位 CPO、存储、半导体设备可能出现补跌。</p></div>
     <div class="risk-item"><span class="risk-dot high"></span><p>港股 7月1日假期导致价格锚滞后，恢复交易后缺口波动可能放大。</p></div>
     <div class="risk-item"><span class="risk-dot low"></span><p>中东局势虽缓和，但霍尔木兹通行和保险成本若反复，会推升油价与避险情绪。</p></div>
     <div class="risk-item"><span class="risk-dot low"></span><p>Futu 财报日历和 NOTICE 未发现 HSTECH 权重新财报，个股催化更多来自外盘映射而非基本面确认。</p></div>
     <div class="risk-item"><span class="risk-dot high"></span><p>若软件/平台股高开低走，说明资金仍偏向兑现，今日轮动主线需降仓观察。</p></div>
   </div></section>
-  <p class="source-line">数据来源与时间点：Futu OpenD 财报日历/NOTICE/行情，Moomoo Sparks 美股板块排行，AP/WSJ/Axios/Barron's 市场报道；抓取时间 2026-07-02 08:55 CST。A/H 财报结论基于 HK/SH/SZ 7月1日至7月2日窗口。</p>
-</section>
+<section class="module full"><h3>数据来源与时间点</h3><p class="source-line">数据来源与时间点：Futu OpenD 财报日历/NOTICE/行情，Moomoo Sparks 美股板块排行，AP/WSJ/Axios/Barron's 市场报道；抓取时间 2026-07-02 08:55 CST。A/H 财报结论基于 HK/SH/SZ 7月1日至7月2日窗口。</p></section>
+</div>
 <!-- A_H_BRIEF_END --></div></article>
     <article class="brief panel" id="us-brief"><div class="brief-header"><div><div class="brief-kicker">US Premarket</div><h2>美股盘前简报</h2></div><div class="brief-time" id="us-time"><!-- US_TIME_START -->2026-06-30 21:10 CST<!-- US_TIME_END --></div></div><div class="brief-content" id="us-content"><!-- US_BRIEF_START --><div class="brief-dashboard">
 <details class="module full collapsible-news" open><summary>重大新闻汇总</summary><div class="news-list">
