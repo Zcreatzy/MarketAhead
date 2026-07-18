@@ -386,6 +386,22 @@
       observer.observe(module);
     });
   }
+  function toNewYorkTime(text){
+    var match = String(text || '').match(/^(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})\s+CST$/);
+    if(!match){return text || '';}
+    var date = new Date(Date.UTC(+match[1], +match[2] - 1, +match[3], +match[4] - 8, +match[5]));
+    var parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone:'America/New_York',
+      year:'numeric',
+      month:'2-digit',
+      day:'2-digit',
+      hour:'2-digit',
+      minute:'2-digit',
+      hour12:false,
+      timeZoneName:'short'
+    }).formatToParts(date).reduce(function(out, part){out[part.type] = part.value;return out;}, {});
+    return parts.year + '-' + parts.month + '-' + parts.day + ' ' + parts.hour + ':' + parts.minute + ' ' + parts.timeZoneName;
+  }
   function applyLanguage(){
     var isEn = currentLang === 'en';
     document.documentElement.lang = isEn ? 'en' : 'zh-CN';
@@ -394,6 +410,8 @@
     recordTitle.textContent = isEn ? 'Latest Market Brief' : '最新市场简报';
     ahTitle.textContent = isEn ? 'A/H Morning Brief' : 'A股港股早报';
     usTitle.textContent = isEn ? 'US Premarket Brief' : '美股盘前简报';
+    ahTime.textContent = isEn ? toNewYorkTime(loadedTimes.AH || ahTime.textContent) : (loadedTimes.AH || ahTime.textContent);
+    usTime.textContent = isEn ? toNewYorkTime(loadedTimes.US || usTime.textContent) : (loadedTimes.US || usTime.textContent);
     if(note){note.innerHTML = isEn ? 'Note: archived records load from <code>history/data/YYYY-MM-DD.json</code>; date pages render through <code>history/?date=YYYY-MM-DD</code>; the homepage calendar is generated from <code>history/manifest.json</code>.' : '提示：历史内容已迁移到 <code>history/data/YYYY-MM-DD.json</code>，日期页使用 <code>history/?date=YYYY-MM-DD</code> 读取渲染；首页日历由 <code>history/manifest.json</code> 自动生成。';}
     if(sectorPanel){sectorPanel.innerHTML = isEn ? EN_COPY.sector : sectorZh;}
     if(currentRecords.length){renderCalendar(currentRecords);}
