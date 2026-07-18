@@ -90,6 +90,7 @@
     .calendar-grid a.active.has-ah:after{box-shadow:0 0 0 2px #fff,0 0 0 4px rgba(57,255,136,.38)}.calendar-grid a.active.has-us:before{box-shadow:0 0 0 2px #fff,0 0 0 4px rgba(255,159,26,.34)}
     .history-legend{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;color:var(--muted);font-size:12px}
     .history-legend i{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:4px}.history-legend span:first-child i{background:#39ff88}.history-legend span:last-child i{background:#ff9f1a}
+    .record-banner{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px;padding:12px 14px}.record-banner strong{font-size:16px}.record-banner span{color:var(--muted);font-size:12px}.lang-toggle{display:flex;gap:4px;margin-left:auto;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.72);padding:3px}.lang-toggle button{border:0;border-radius:6px;background:transparent;color:var(--muted);cursor:pointer;font:inherit;font-size:12px;font-weight:760;padding:5px 8px}.lang-toggle button.active{background:var(--teal);color:#fff}
     .us-sector-panel{margin-top:14px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.70);padding:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
     .us-sector-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
     .us-sector-head b{display:block;font-size:14px;line-height:1.25}.us-sector-head span{color:var(--muted);font-size:11px;line-height:1.35;text-align:right}
@@ -109,7 +110,7 @@
     .module.full{grid-column:1/-1}
     .collapsible-news{padding:0;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.78),rgba(246,250,252,.72))}
     .collapsible-news>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;font-size:16px;font-weight:760}
-    .collapsible-news>summary::-webkit-details-marker{display:none}.collapsible-news>summary:after{content:"收起";border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--muted);font-size:12px;font-weight:650;background:#fff;white-space:nowrap}.collapsible-news:not([open])>summary:after{content:"展开"}.collapsible-news>.news-list{padding:0 14px 14px}
+    .collapsible-news>summary::-webkit-details-marker{display:none}.collapsible-news>summary:after{content:"收起";border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--muted);font-size:12px;font-weight:650;background:#fff;white-space:nowrap}.collapsible-news:not([open])>summary:after{content:"展开"}body.lang-en .collapsible-news>summary:after{content:"Collapse"}body.lang-en .collapsible-news:not([open])>summary:after{content:"Expand"}.collapsible-news>.news-list{padding:0 14px 14px}
     .takeaway{border-left:4px solid var(--teal);background:linear-gradient(135deg,rgba(241,251,252,.96),rgba(255,255,255,.72))}
     .news-list{display:grid;gap:8px}.news-item{display:grid;grid-template-columns:70px minmax(0,1fr);gap:10px;align-items:start;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.82);padding:10px;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
     .news-item:hover{transform:translateX(2px);border-color:rgba(0,116,129,.28);box-shadow:0 12px 24px rgba(24,39,52,.08)}
@@ -141,6 +142,7 @@
   </section>
 </aside>
 <section class="history-stage">
+  <div class="record-banner panel"><strong id="record-title">最新市场简报</strong><span id="record-meta">正在读取归档...</span><div class="lang-toggle" aria-label="Language"><button type="button" data-lang="zh">中文</button><button type="button" data-lang="en">EN</button></div></div>
   <section class="brief-grid">
     <article class="brief panel" id="a-h-brief"><div class="brief-header"><div><div class="brief-kicker">Asia Morning</div><h2>A股港股早报</h2></div><div class="brief-time" id="ah-time"><!-- A_H_TIME_START -->2026-07-17 08:55 CST<!-- A_H_TIME_END --></div></div><div class="brief-content" id="ah-content"><!-- A_H_BRIEF_START --><div class="brief-dashboard">
 <details class="module full collapsible-news" open><summary>重大新闻汇总</summary><div class="news-list">
@@ -281,16 +283,61 @@
 </main>
 <script>
 (function(){
+  var currentLang = ((navigator.language || '').toLowerCase().indexOf('zh') === 0) ? 'zh' : 'en';
   var zhMonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var dows = ['一','二','三','四','五','六','日'];
+  var dowsByLang = {zh:['一','二','三','四','五','六','日'],en:['Mon','Tue','Wed','Thu','Fri','Sat','Sun']};
   var grid = document.getElementById('calendar-grid');
   var title = document.getElementById('calendar-title');
   var shortTitle = document.getElementById('calendar-short');
+  var recordTitle = document.getElementById('record-title');
   var meta = document.getElementById('record-meta');
   var ahContent = document.getElementById('ah-content');
   var usContent = document.getElementById('us-content');
   var ahTime = document.getElementById('ah-time');
   var usTime = document.getElementById('us-time');
+  var ahTitle = document.querySelector('#a-h-brief h2');
+  var usTitle = document.querySelector('#us-brief h2');
+  var sectorPanel = document.querySelector('.us-sector-panel');
+  var note = document.querySelector('.note');
+  var loaded = {AH:null,US:null};
+  var loadedTimes = {AH:'',US:''};
+  var currentRecords = [];
+  var sectorZh = '';
+  // ponytail: latest homepage English copy; add html_en to history JSON when archives need per-date translations.
+  var EN_COPY = {
+    sector:'<div class="us-sector-head"><b>Overnight US Sector Movers</b><span>2026-07-17 08:55 CST</span></div><div class="spark-table"><div class="spark-row"><div><div class="spark-name">Mpox theme</div><div class="spark-leader">VRAX +13.04% · Up/Down/Flat 6/4/2</div></div><div class="spark-change">+3.73%</div></div><div class="spark-row"><div><div class="spark-name">Sports</div><div class="spark-leader">NKE +4.21% · Up/Down/Flat 9/0/0</div></div><div class="spark-change">+3.43%</div></div><div class="spark-row"><div><div class="spark-name">Live streaming</div><div class="spark-leader">BILI +3.94% · Up/Down/Flat 4/0/1</div></div><div class="spark-change">+3.12%</div></div><div class="spark-row"><div><div class="spark-name">Branded apparel</div><div class="spark-leader">UA +5.82% · Up/Down/Flat 7/0/0</div></div><div class="spark-change">+2.83%</div></div><div class="spark-row"><div><div class="spark-name">Software outsourcing</div><div class="spark-leader">VRSK +4.98% · Up/Down/Flat 7/2/0</div></div><div class="spark-change">+2.76%</div></div><div class="spark-row"><div><div class="spark-name">Oncology drugs</div><div class="spark-leader">BIIB +5.92% · Up/Down/Flat 6/1/0</div></div><div class="spark-change">+2.53%</div></div><div class="spark-row"><div><div class="spark-name">Credit payments</div><div class="spark-leader">FIS +3.70% · Up/Down/Flat 9/1/0</div></div><div class="spark-change">+2.42%</div></div><div class="spark-row"><div><div class="spark-name">Digital payments</div><div class="spark-leader">EEFT +4.23% · Up/Down/Flat 14/8/0</div></div><div class="spark-change">+2.30%</div></div><div class="spark-row"><div><div class="spark-name">Pharma outsourcing</div><div class="spark-leader">DGX +3.79% · Up/Down/Flat 4/1/0</div></div><div class="spark-change">+2.09%</div></div><div class="spark-row"><div><div class="spark-name">Epidemic care</div><div class="spark-leader">ABT +10.71% · Up/Down/Flat 15/3/0</div></div><div class="spark-change">+2.06%</div></div><div class="spark-row"><div><div class="spark-name">CAR-T therapy</div><div class="spark-leader">AMGN +3.70% · Up/Down/Flat 8/0/0</div></div><div class="spark-change">+1.89%</div></div><div class="spark-row"><div><div class="spark-name">AI healthcare</div><div class="spark-leader">SYK +4.66% · Up/Down/Flat 8/20/2</div></div><div class="spark-change">+1.83%</div></div></div><p class="spark-source">Source: Futunn/Moomoo Sparks US sector ranking. Used for overnight mapping, not a substitute for company research.</p>',
+    AH:`<div class="brief-dashboard">
+<details class="module full collapsible-news" open><summary>Major News</summary><div class="news-list">
+<div class="news-item"><span class="news-tag geo">Global</span><div><div class="news-title">US-Iran tensions and Hormuz risk keep energy security in focus</div><div class="news-detail">Public reports still point to military and shipping tension around Hormuz and Red Sea routes. For A/H markets, watch oil, shipping, airlines, chemical costs and high-dividend energy names against Brent/WTI.</div></div></div>
+<div class="news-item"><span class="news-tag geo">Macro</span><div><div class="news-title">Higher Treasury yields plus tech selling pressure growth valuations</div><div class="news-detail">US indexes fell overnight, with Nasdaq weaker as the 10Y yield moved near 4.6%. A/H trading needs to separate low-valuation platform repair from crowded hardware-chain selling.</div></div></div>
+<div class="news-item"><span class="news-tag tech">Tech</span><div><div class="news-title">Sparks leaders skew to healthcare, sports, streaming and payments</div><div class="news-detail">Top Sparks groups included mpox, sports, live streaming, branded apparel and software outsourcing. The A/H read-through is healthcare, consumer apparel, content platforms and payment fintech, confirmed only if Hang Seng Tech leaders open with volume.</div></div></div>
+<div class="news-item"><span class="news-tag tech">Tech</span><div><div class="news-title">The largest tech pressure remains semiconductors, memory and AI hardware</div><div class="news-detail">Futu snapshots showed SMH -3.70%, SOXX -4.46%, NVDA -2.40%, MU -5.65%, AMD -5.33% and SNDK -12.63%. Watch SMIC, Hua Hong, JCET, GigaDevice, servers and compute names for whether they reclaim the open.</div></div></div>
+<div class="news-item"><span class="news-tag earn">Calendar</span><div><div class="news-title">Local earnings calendars show small and mid-cap events, not Hang Seng Tech heavyweights</div><div class="news-detail">Futu calendars showed Johnson Electric, Public Financial, China Properties Investment and several A-share reports, but no formal results from Tencent, Alibaba, Meituan, Xiaomi, SMIC or Hua Hong.</div></div></div>
+</div></details>
+<section class="module takeaway full"><h3>Today's Takeaway</h3><p>Overnight US trading was not a broad risk-off move; it was a sharp split. Healthcare, streaming, apparel, payments and outsourcing software led Sparks, while semiconductors, memory, AI hardware and optical communication sold off. The key A/H question is whether low-valuation platforms and consumer healthcare can absorb money while crowded hardware keeps correcting.</p><p>For Hong Kong, watch Alibaba, Tencent, Meituan, Kuaishou and Xiaomi volume. For A-shares, avoid blindly chasing CPO, memory and semis until SMIC, Hua Hong, Zhongji Innolight and Eoptolink confirm real opening support.</p></section>
+<div class="module-grid"><section class="module"><h3>Key Assets</h3><div class="asset-strip"><div class="asset-row"><span>Nasdaq 100</span><div class="bar down"><i style="width:60%"></i></div><b class="negative">Tech drag</b></div><div class="asset-row"><span>Semis</span><div class="bar down"><i style="width:78%"></i></div><b class="negative">Hardware selloff</b></div><div class="asset-row"><span>China platforms</span><div class="bar up"><i style="width:62%"></i></div><b class="positive">Resilient</b></div><div class="asset-row"><span>Healthcare/consumer</span><div class="bar up"><i style="width:66%"></i></div><b class="positive">Rotation bid</b></div><div class="asset-row"><span>Oil risk</span><div class="bar up"><i style="width:68%"></i></div><b class="watch">Inflation noise</b></div></div></section><section class="module"><h3>Keyword Cloud</h3><div class="word-cloud"><span class="w5 bear" tabindex="0" data-note="SMH, SOXX, NVDA, MU, AMD and SNDK all fell.">Chip memory</span><span class="w5 bear" tabindex="0" data-note="CIEN and GLW fell with the AI hardware complex.">Optical/CPO</span><span class="w4 bull" tabindex="0" data-note="Healthcare-related Sparks groups ranked high overnight.">Healthcare rotation</span><span class="w4 bull" tabindex="0" data-note="BILI led the streaming theme.">Streaming content</span><span class="w4 bull" tabindex="0" data-note="Sports and apparel groups rose.">Consumer apparel</span><span class="w3 bull" tabindex="0" data-note="Payment themes ranked well overnight.">Digital payments</span></div><div class="cloud-legend"><span><i class="bull-dot"></i>Bullish</span><span><i class="bear-dot"></i>Bearish</span><span><i class="neutral-dot"></i>Neutral</span><span>w1-w5 shows importance, not return.</span></div></section></div>
+<section class="module full"><h3>Stock Watchlist</h3><div class="stock-picks"><div class="stock-card"><div class="stock-head"><div><div class="stock-name">Kuaishou-W</div><div class="stock-ticker">HK.01024</div></div><span class="stock-badge">Streaming read-through</span></div><p><b>Why:</b>Live-streaming Sparks rose and BILI gained, giving content platforms a rotation signal as hardware cools.</p><p><b>Trigger:</b>Kuaishou trades stronger than Hang Seng Tech with expanding turnover.</p><p><b>Risk:</b>A weak Hang Seng Tech tape can quickly fade the theme.</p></div><div class="stock-card"><div class="stock-head"><div><div class="stock-name">Alibaba-W</div><div class="stock-ticker">HK.09988</div></div><span class="stock-badge">Platform bid</span></div><p><b>Why:</b>KWEB was positive while hardware names weakened; Alibaba remains a core liquidity proxy for platform repair.</p><p><b>Trigger:</b>Alibaba holds the prior close and lifts Hang Seng Tech turnover.</p><p><b>Risk:</b>The move may only be defensive rotation if southbound buying is thin.</p></div><div class="stock-card"><div class="stock-head"><div><div class="stock-name">Zhongji Innolight</div><div class="stock-ticker">SZ.300308</div></div><span class="stock-badge">Validation only</span></div><p><b>Why:</b>US optical names fell; CPO is the clearest A-share pressure mapping.</p><p><b>Trigger:</b>A low open reclaims the opening price within 30 minutes without abnormal selling volume.</p><p><b>Risk:</b>If US semis and optical names keep falling, high-valuation CPO can compress further.</p></div></div></section>
+<section class="module full"><h3>Rotation Board</h3><div class="sector-board"><div class="sector-tile positive"><b>Beneficiaries</b><span>Healthcare rotation, streaming content, apparel and digital payments.</span></div><div class="sector-tile watch"><b>Watch</b><span>Hong Kong platform leaders and Hang Seng Tech turnover.</span></div><div class="sector-tile negative"><b>Pressure</b><span>Semiconductors, memory, AI servers and optical/CPO.</span></div><div class="sector-tile neutral"><b>Confirm</b><span>First 30 minutes: Hang Seng Tech turnover, southbound flows, CPO opening support and oil direction.</span></div></div></section>
+<section class="module full"><h3>Risk Radar</h3><div class="risk-list"><div class="risk-item"><span class="risk-dot high"></span><div><b>AI hardware drawdown</b><p>If semis, memory, servers and CPO fail to reclaim the open, prior leaders can keep derating.</p></div></div><div class="risk-item"><span class="risk-dot high"></span><div><b>Middle East energy risk</b><p>Hormuz or Red Sea disruptions can lift oil and pressure airlines, chemicals and growth valuations.</p></div></div><div class="risk-item"><span class="risk-dot low"></span><div><b>Platform fade</b><p>Without southbound flow and volume, platform repair may only be defensive rotation.</p></div></div></div></section>
+<section class="module full"><h3>Sources And Timestamp</h3><div class="source-line">Data through 2026-07-17 08:55 CST. Sources: Futunn Sparks, Futu OpenD calendars/NOTICE/quotes, AP, WSJ, MarketWatch, Reuters and Investopedia.</div></section>
+</div>`,
+    US:`<div class="brief-dashboard">
+<details class="module full collapsible-news" open><summary>Major News</summary><div class="news-list">
+<div class="news-item"><span class="news-tag geo">Macro</span><div><div class="news-title">US futures weaken across the board, with Nasdaq still leading lower</div><div class="news-detail">Reuters/MarketScreener, Investopedia and IBD pointed to weaker premarket risk appetite on July 17: Nasdaq 100 futures down roughly 1.7%-2.1%, S&amp;P 500 futures down roughly 0.8%-1.1%, and Dow futures down roughly 0.5%-0.7%.</div></div></div>
+<div class="news-item"><span class="news-tag tech">Tech</span><div><div class="news-title">Chip selling spreads again as AI capex gets repriced</div><div class="news-detail">Reports showed broad chip weakness, with memory names and AI hardware under pressure. The premarket price action is clearly bearish, so chips are not written as a long idea today.</div></div></div>
+<div class="news-item"><span class="news-tag earn">Earnings</span><div><div class="news-title">Netflix falls hard after earnings as weak guidance hits platform tech</div><div class="news-detail">NFLX traded sharply lower premarket despite EPS beating expectations, as revenue and third-quarter guidance disappointed. It belongs in the risk bucket, not the bullish watchlist.</div></div></div>
+<div class="news-item"><span class="news-tag earn">Earnings</span><div><div class="news-title">Intuitive Surgical sells off despite strong results</div><div class="news-detail">ISRG fell because the company did not raise forward guidance. That reaction shows the market is focused on the size of the forward surprise, not just headline beats.</div></div></div>
+<div class="news-item"><span class="news-tag earn">Earnings</span><div><div class="news-title">Regional banks are today's non-tech earnings lane</div><div class="news-detail">Key calendars included Fifth Third, Regions Financial, Travelers and Autoliv. If financial results are stable, money may rotate from technology into lower-valuation cash-flow names.</div></div></div>
+</div></details>
+<section class="module takeaway full"><h3>Premarket Takeaway</h3><p>Today's core issue is not that earnings season is bad. It is that the market's tolerance for technology valuations and AI capex is falling quickly. NFLX sold off after guidance, ISRG sold off despite strong results, and memory/chip names extended losses.</p><p>The likely open is a lower, split tape: Nasdaq and SMH stay at the pressure center, S&amp;P 500 is dragged by tech weight, and Dow is relatively defensive but unlikely to be fully independent. Rotation is more likely toward bank earnings, insurance, defensive healthcare and cash-flow names than toward immediate semiconductor dip-buying.</p><p>The first 30 minutes matter. If QQQ/SMH reclaim the opening price on volume, tech can stage a technical bounce; if NFLX, MU, SNDK, NVDA and INTC keep falling, the market stays in a sell-the-rally structure.</p></section>
+<div class="module-grid"><section class="module"><h3>Key Assets</h3><div class="asset-strip"><div class="asset-row"><span>Nasdaq futures</span><div class="bar down"><i style="width:86%"></i></div><b class="negative">Leading lower</b></div><div class="asset-row"><span>S&amp;P futures</span><div class="bar down"><i style="width:70%"></i></div><b class="negative">Tech drag</b></div><div class="asset-row"><span>Dow futures</span><div class="bar down"><i style="width:52%"></i></div><b class="watch">Defensive</b></div><div class="asset-row"><span>10Y Treasury</span><div class="bar neutral"><i style="width:54%"></i></div><b class="watch">~4.54%</b></div><div class="asset-row"><span>WTI crude</span><div class="bar up"><i style="width:68%"></i></div><b class="watch">~$81</b></div><div class="asset-row"><span>Bitcoin</span><div class="bar down"><i style="width:60%"></i></div><b class="negative">~63k</b></div></div></section><section class="module"><h3>Keyword Cloud</h3><div class="word-cloud"><span class="w5 bear" tabindex="0" data-note="Nasdaq futures are the weakest major index futures.">Nasdaq leads down</span><span class="w5 bear" tabindex="0" data-note="Memory, semis and AI server names fell again.">Second chip selloff</span><span class="w5 bear" tabindex="0" data-note="NFLX fell after weaker revenue and Q3 guidance.">NFLX guidance</span><span class="w4 bear" tabindex="0" data-note="ISRG sold off because guidance was not raised.">ISRG sell-the-news</span><span class="w4 neutral" tabindex="0" data-note="FITB, RF and TRV help show where money goes outside tech.">Bank earnings</span></div><div class="cloud-legend"><span><i class="bull-dot"></i>Bullish</span><span><i class="bear-dot"></i>Bearish</span><span><i class="neutral-dot"></i>Neutral</span><span>w1-w5 shows importance, not return.</span></div></section></div>
+<section class="module full"><h3>Stock Watchlist</h3><div class="stock-picks"><div class="stock-card"><div class="stock-head"><div><div class="stock-name">Fifth Third Bancorp</div><div class="stock-ticker">FITB</div></div><span class="stock-badge">Earnings check</span></div><p><b>Why:</b>A key calendar name that is not directly exposed to AI valuation crowding.</p><p><b>Trigger:</b>FITB trades stronger than KRE/XLF with expanding volume.</p><p><b>Risk:</b>Loan-loss reserves, deposit costs or commercial real estate exposure can break the defensive case.</p></div><div class="stock-card"><div class="stock-head"><div><div class="stock-name">Regions Financial</div><div class="stock-ticker">RF</div></div><span class="stock-badge">Financial rotation</span></div><p><b>Why:</b>Another regional bank earnings sample for money rotating out of high-valuation tech.</p><p><b>Trigger:</b>RF and FITB both outperform the market.</p><p><b>Risk:</b>Weak credit comments can turn banks from refuge into cyclical risk.</p></div><div class="stock-card"><div class="stock-head"><div><div class="stock-name">Travelers</div><div class="stock-ticker">TRV</div></div><span class="stock-badge">Insurance defense</span></div><p><b>Why:</b>Insurance has low correlation to chip/NFLX pressure and can anchor Dow defense.</p><p><b>Trigger:</b>TRV outperforms Dow and insurers hold firm.</p><p><b>Risk:</b>Cat losses, combined ratio or investment-income misses can weaken the setup.</p></div><div class="stock-card"><div class="stock-head"><div><div class="stock-name">Johnson &amp; Johnson</div><div class="stock-ticker">JNJ</div></div><span class="stock-badge">Defensive watch</span></div><p><b>Why:</b>Healthcare and defensive consumer names can catch relative demand when tech selling broadens.</p><p><b>Trigger:</b>JNJ outperforms SPY while XLV strengthens.</p><p><b>Risk:</b>This is not a fresh earnings catalyst; in panic, low beta may only fall less.</p></div></div></section>
+<section class="module full"><h3>Rotation Board</h3><div class="sector-board"><div class="sector-tile"><b>Strength Watch</b><span>Regional banks, insurance, low-beta healthcare and cash-flow defense.</span></div><div class="sector-tile"><b>Event Driven</b><span>NFLX weak guidance, ISRG no guidance raise, bank and insurance earnings.</span></div><div class="sector-tile"><b>Pressure</b><span>Semiconductors, memory, AI servers and platform tech.</span></div><div class="sector-tile"><b>Confirm</b><span>First 30 minutes: QQQ vs DIA, SMH vs QQQ, NFLX downside and FITB/RF/TRV earnings reactions.</span></div></div></section>
+<section class="module full"><h3>After-Hours Earnings Beat Probability</h3><div class="news-list"><div class="news-item"><span class="news-tag earn">Limited sample</span><div><div class="news-title">No verifiable large-cap tech after-hours sample</div><div class="news-detail">Nasdaq, MarketWatch, Investing.com, Kiplinger calendars and public reports point mainly to non-tech, financial and insurance earnings on July 17.</div></div></div><div class="news-item"><span class="news-tag earn">Excluded</span><div><div class="news-title">Netflix is already reported</div><div class="news-detail">NFLX is a risk sample for platform tech, not an upcoming after-hours beat candidate.</div></div></div></div></section>
+<section class="module full"><h3>Risk Radar</h3><div class="risk-list"><div class="risk-item"><span class="risk-dot high"></span><div><b>Continued chip selling</b><p>If SNDK, WDC, STX, MU, NVDA and INTC keep falling on volume, they can drag Nasdaq and high-beta tech.</p></div></div><div class="risk-item"><span class="risk-dot high"></span><div><b>NFLX guidance contagion</b><p>NFLX can force investors to revisit growth and disclosure quality across platform tech.</p></div></div><div class="risk-item"><span class="risk-dot low"></span><div><b>Oil stays high</b><p>WTI near $81 still pressures airlines, consumers and margin-sensitive companies.</p></div></div></div></section>
+<section class="module full"><h3>Sources And Timestamp</h3><p class="source-line">Sources: Reuters/MarketScreener, Investopedia, IBD, WSJ, Barron's, MarketWatch, Kiplinger and earnings calendars. Collected 2026-07-17 21:00-21:09 CST.</p></section>
+</div>`
+  };
   function typeKey(type){return String(type || '').toUpperCase().replace('/','');}
   function hasType(record, type){return (record.types || []).some(function(item){return typeKey(item) === type;});}
   function esc(text){return String(text == null ? '' : text).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});}
@@ -300,9 +347,9 @@
     var year = parts[0], month = parts[1];
     var map = {};
     records.forEach(function(record){map[record.date] = record;});
-    title.textContent = year + ' 年 ' + month + ' 月';
+    title.textContent = currentLang === 'en' ? zhMonths[month - 1] + ' ' + year : year + ' 年 ' + month + ' 月';
     shortTitle.textContent = zhMonths[month - 1];
-    grid.innerHTML = dows.map(function(day){return '<span class="dow">' + day + '</span>';}).join('');
+    grid.innerHTML = dowsByLang[currentLang].map(function(day){return '<span class="dow">' + day + '</span>';}).join('');
     var first = new Date(year, month - 1, 1);
     var offset = (first.getDay() + 6) % 7;
     var days = new Date(year, month, 0).getDate();
@@ -339,6 +386,24 @@
       observer.observe(module);
     });
   }
+  function applyLanguage(){
+    var isEn = currentLang === 'en';
+    document.documentElement.lang = isEn ? 'en' : 'zh-CN';
+    document.body.classList.toggle('lang-en', isEn);
+    document.title = isEn ? 'MarketAhead By ZC' : 'MarketAhead By ZC';
+    recordTitle.textContent = isEn ? 'Latest Market Brief' : '最新市场简报';
+    ahTitle.textContent = isEn ? 'A/H Morning Brief' : 'A股港股早报';
+    usTitle.textContent = isEn ? 'US Premarket Brief' : '美股盘前简报';
+    if(note){note.innerHTML = isEn ? 'Note: archived records load from <code>history/data/YYYY-MM-DD.json</code>; date pages render through <code>history/?date=YYYY-MM-DD</code>; the homepage calendar is generated from <code>history/manifest.json</code>.' : '提示：历史内容已迁移到 <code>history/data/YYYY-MM-DD.json</code>，日期页使用 <code>history/?date=YYYY-MM-DD</code> 读取渲染；首页日历由 <code>history/manifest.json</code> 自动生成。';}
+    if(sectorPanel){sectorPanel.innerHTML = isEn ? EN_COPY.sector : sectorZh;}
+    if(currentRecords.length){renderCalendar(currentRecords);}
+    if(loaded.AH){ahContent.innerHTML = isEn ? EN_COPY.AH : loaded.AH;cleanNewsTitlePrefixes(ahContent);revealModules(ahContent);}
+    if(loaded.US){usContent.innerHTML = isEn ? EN_COPY.US : loaded.US;cleanNewsTitlePrefixes(usContent);revealModules(usContent);}
+    Array.prototype.forEach.call(document.querySelectorAll('.lang-toggle button'), function(button){
+      button.classList.toggle('active', button.getAttribute('data-lang') === currentLang);
+      button.setAttribute('aria-pressed', button.classList.contains('active') ? 'true' : 'false');
+    });
+  }
   function cleanNewsTitlePrefixes(scope){
     var root = scope || document;
     var nodes = Array.prototype.slice.call(root.querySelectorAll('.news-title,.stock-name,[class*="title"],[class*="headline"],[class*="flash"],[class*="news"]'));
@@ -363,37 +428,49 @@
   }
   function renderEntry(target, timeTarget, data, type){
     var entry = (data.entries || []).find(function(item){return typeKey(item.type) === type || typeKey(item.label).indexOf(type) >= 0;});
-    if(!entry){target.innerHTML = '<div class="panel empty">这个日期没有对应简报。</div>';return '';}
-    target.innerHTML = entry.html || '<div class="panel empty">归档内容为空。</div>';
+    if(!entry){target.innerHTML = '<div class="panel empty">' + (currentLang === 'en' ? 'No brief is available for this date.' : '这个日期没有对应简报。') + '</div>';return '';}
+    loaded[type] = entry.html || '<div class="panel empty">归档内容为空。</div>';
+    target.innerHTML = currentLang === 'en' ? (EN_COPY[type] || loaded[type]) : loaded[type];
     cleanNewsTitlePrefixes(target);
     revealModules(target);
-    timeTarget.textContent = entry.updated || data.updated || data.date || '';
+    loadedTimes[type] = entry.updated || data.updated || data.date || '';
+    timeTarget.textContent = loadedTimes[type];
     return timeTarget.textContent;
   }
   function loadRecord(record, type, target, timeTarget){
-    if(!record){target.innerHTML = '<div class="panel empty">暂无归档。</div>';return Promise.resolve('');}
+    if(!record){target.innerHTML = '<div class="panel empty">' + (currentLang === 'en' ? 'No archive yet.' : '暂无归档。') + '</div>';return Promise.resolve('');}
     return fetch('history/data/' + record.date + '.json', {cache:'no-store'}).then(function(res){
       if(!res.ok){throw new Error(record.date);}
       return res.json();
     }).then(function(data){return renderEntry(target, timeTarget, data, type);}).catch(function(){
-      target.innerHTML = '<div class="panel empty">读取 ' + esc(record.date) + ' 归档失败。</div>';
+      target.innerHTML = '<div class="panel empty">' + (currentLang === 'en' ? 'Failed to load archive ' : '读取 ') + esc(record.date) + (currentLang === 'en' ? '.' : ' 归档失败。') + '</div>';
       return '';
     });
   }
   cleanNewsTitlePrefixes(document);
   revealModules(document);
+  if(sectorPanel){sectorZh = sectorPanel.innerHTML;}
+  Array.prototype.forEach.call(document.querySelectorAll('.lang-toggle button'), function(button){
+    button.addEventListener('click', function(){
+      currentLang = button.getAttribute('data-lang') || 'zh';
+      applyLanguage();
+    });
+  });
+  applyLanguage();
   fetch('history/manifest.json', {cache:'no-store'}).then(function(res){return res.json();}).then(function(manifest){
     var records = (manifest.records || []).slice().sort(function(a,b){return b.date.localeCompare(a.date);});
+    currentRecords = records;
     renderCalendar(records);
     var ah = latestOf(records,'AH');
     var us = latestOf(records,'US');
     return Promise.all([loadRecord(ah,'AH',ahContent,ahTime), loadRecord(us,'US',usContent,usTime)]).then(function(times){
-      meta.textContent = ['A/H ' + (times[0] || (ah && ah.date) || '暂无'), 'US ' + (times[1] || (us && us.date) || '暂无')].join(' · ');
+      meta.textContent = ['A/H ' + (times[0] || (ah && ah.date) || (currentLang === 'en' ? 'none' : '暂无')), 'US ' + (times[1] || (us && us.date) || (currentLang === 'en' ? 'none' : '暂无'))].join(' · ');
+      applyLanguage();
     });
   }).catch(function(){
-    meta.textContent = '归档清单读取失败';
-    ahContent.innerHTML = '<div class="panel empty">无法读取历史清单。</div>';
-    usContent.innerHTML = '<div class="panel empty">无法读取历史清单。</div>';
+    meta.textContent = currentLang === 'en' ? 'Archive list failed to load' : '归档清单读取失败';
+    ahContent.innerHTML = '<div class="panel empty">' + (currentLang === 'en' ? 'Cannot load archive list.' : '无法读取历史清单。') + '</div>';
+    usContent.innerHTML = '<div class="panel empty">' + (currentLang === 'en' ? 'Cannot load archive list.' : '无法读取历史清单。') + '</div>';
   });
 })();
 </script>
