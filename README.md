@@ -1,6 +1,8 @@
-# 盘前纵览 by ZC
+# MarketAhead By ZC
 
 MarketAhead is a static daily market brief for A/H markets and US premarket sessions. It turns each trading day's notes into a browsable HTML dashboard with a calendar archive backed by JSON data.
+
+Live site: [https://market-ahead-open.vercel.app/](https://market-ahead-open.vercel.app/)
 
 ## Overview
 
