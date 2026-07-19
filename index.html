@@ -426,6 +426,9 @@
     }).formatToParts(date).reduce(function(out, part){out[part.type] = part.value;return out;}, {});
     return parts.year + '-' + parts.month + '-' + parts.day + ' ' + parts.hour + ':' + parts.minute + ' ' + parts.timeZoneName;
   }
+  function localizeNewYorkTimes(html){
+    return String(html || '').replace(/\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}\s+CST/g, toNewYorkTime);
+  }
   function applyLanguage(){
     var isEn = currentLang === 'en';
     document.documentElement.lang = isEn ? 'en' : 'zh-CN';
@@ -437,7 +440,7 @@
     ahTime.textContent = isEn ? toNewYorkTime(loadedTimes.AH || ahTime.textContent) : (loadedTimes.AH || ahTime.textContent);
     usTime.textContent = isEn ? toNewYorkTime(loadedTimes.US || usTime.textContent) : (loadedTimes.US || usTime.textContent);
     if(note){note.innerHTML = isEn ? 'Note: archived records load from <code>history/data/YYYY-MM-DD.json</code>; date pages render through <code>history/?date=YYYY-MM-DD</code>; the homepage calendar is generated from <code>history/manifest.json</code>.' : '提示：历史内容已迁移到 <code>history/data/YYYY-MM-DD.json</code>，日期页使用 <code>history/?date=YYYY-MM-DD</code> 读取渲染；首页日历由 <code>history/manifest.json</code> 自动生成。';}
-    if(sectorPanel){sectorPanel.innerHTML = isEn ? EN_COPY.sector : sectorZh;}
+    if(sectorPanel){sectorPanel.innerHTML = isEn ? localizeNewYorkTimes(EN_COPY.sector) : sectorZh;}
     if(currentRecords.length){renderCalendar(currentRecords);}
     if(loaded.AH){ahContent.innerHTML = isEn ? EN_COPY.AH : loaded.AH;cleanNewsTitlePrefixes(ahContent);revealModules(ahContent);}
     if(loaded.US){usContent.innerHTML = isEn ? EN_COPY.US : loaded.US;cleanNewsTitlePrefixes(usContent);revealModules(usContent);}
