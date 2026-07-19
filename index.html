@@ -434,7 +434,7 @@
     document.documentElement.lang = isEn ? 'en' : 'zh-CN';
     document.body.classList.toggle('lang-en', isEn);
     document.title = isEn ? 'MarketAhead By ZC' : 'MarketAhead By ZC';
-    recordTitle.textContent = 'AI🐶军师的每日盘前沙盘推演 via GPT5.5 medium, created by ZC';
+    recordTitle.textContent = isEn ? 'AI🐶 Strategist Daily Premarket Wargame via GPT5.5 medium, created by ZC' : 'AI🐶军师的每日盘前沙盘推演 via GPT5.5 medium, created by ZC';
     ahTitle.textContent = isEn ? 'A/H Morning Brief' : 'A股港股早报';
     usTitle.textContent = isEn ? 'US Premarket Brief' : '美股盘前简报';
     ahTime.textContent = isEn ? toNewYorkTime(loadedTimes.AH || ahTime.textContent) : (loadedTimes.AH || ahTime.textContent);
