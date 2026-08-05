@@ -1,6 +1,15 @@
 {
-  "generatedAt": "2026-08-05T21:03:00+08:00",
+  "generatedAt": "2026-08-06T00:42:00+08:00",
   "records": [
+    {
+      "date": "2026-08-06",
+      "types": [
+        "AH"
+      ],
+      "title": "A股港股早报：白银医药与IDC领跑，芯片平台分化验证",
+      "updated": "2026-08-06 00:42 CST",
+      "summary": "白银、CXO与IDC映射偏强；NVDA/MU上涨但AMD、SOXX与XLC承压，A/H芯片、CPO和平台需开盘量价确认。"
+    },
     {
       "date": "2026-08-05",
       "types": [
