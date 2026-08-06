@@ -1,6 +1,15 @@
 {
-  "generatedAt": "2026-08-07 02:16 CST",
+  "generatedAt": "2026-08-07 05:24 CST",
   "records": [
+    {
+      "date": "2026-08-07",
+      "types": [
+        "US"
+      ],
+      "title": "美股盘前：非农前夕风险降温，AI基础设施强于高估值软件",
+      "updated": "2026-08-07 05:24 CST",
+      "summary": "美股在非农前夕消化油价、长债和财报分化；Cloudflare、Unity、Teradyne 等强价格反馈优先，HubSpot/Datadog/AppLovin 代表的软件高预期仍需回避追高。"
+    },
     {
       "date": "2026-08-06",
       "types": [
