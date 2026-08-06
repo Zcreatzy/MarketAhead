@@ -1,14 +1,15 @@
 {
-  "generatedAt": "2026-08-06 09:08 CST",
+  "generatedAt": "2026-08-07 02:16 CST",
   "records": [
     {
       "date": "2026-08-06",
       "types": [
-        "AH"
+        "AH",
+        "US"
       ],
-      "title": "A股港股早报：Sparks资源医药领跑，算力链分化验证",
-      "updated": "2026-08-06 09:08 CST",
-      "summary": "白银、减肥药、CRO与资源方向领跑；IDC/AI链仍看NVDA、ANET强势能否抵消AMD和纳指压力。"
+      "title": "A股港股早报 + 美股盘前：科技负反馈扩散，核电与优质软件抗跌",
+      "updated": "2026-08-07 02:16 CST",
+      "summary": "美股盘前到盘中延续财报分化：存储和高预期软件被卖，SITM、U、PAYC、CEG 等强反馈标的更适合跟随价格确认。"
     },
     {
       "date": "2026-08-05",
