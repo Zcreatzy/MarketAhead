@@ -1,14 +1,15 @@
 {
-  "generatedAt": "2026-08-07 05:24 CST",
+  "generatedAt": "2026-08-07 08:52 CST",
   "records": [
     {
       "date": "2026-08-07",
       "types": [
-        "US"
+        "US",
+        "AH"
       ],
-      "title": "美股盘前：非农前夕风险降温，AI基础设施强于高估值软件",
-      "updated": "2026-08-07 05:24 CST",
-      "summary": "美股在非农前夕消化油价、长债和财报分化；Cloudflare、Unity、Teradyne 等强价格反馈优先，HubSpot/Datadog/AppLovin 代表的软件高预期仍需回避追高。"
+      "title": "A股港股早报：激光雷达与锂电映射升温，油价利率压估值 + 美股盘前",
+      "updated": "2026-08-07 08:52 CST",
+      "summary": "隔夜美股指数小跌但结构分化，Futunn Sparks 显示激光雷达、锂矿、太空和外卖领涨；A/H 早盘重点看舜宇光学、赣锋锂业、美团和低空经济链的价格确认，油价与长债上行仍压制估值。"
     },
     {
       "date": "2026-08-06",
