@@ -1,14 +1,15 @@
 {
-  "generatedAt": "2026-08-12 08:53 CST",
+  "generatedAt": "2026-08-12 21:16 CST",
   "records": [
     {
       "date": "2026-08-12",
       "types": [
-        "AH"
+        "AH",
+        "US"
       ],
-      "title": "A股港股早报：AI光通信财报接力，存储激光雷达映射与油价风险并行",
-      "updated": "2026-08-12 08:53 CST",
-      "summary": "Futunn Sparks 显示体育博彩、加密矿企、存储、SOL 储备和激光雷达领涨；公开报道显示中东与霍尔木兹不确定性推升油价，美股指数在 CPI 前小幅回落，但 Lumentum、Super Micro、CoreWeave 盘后反馈支持 AI 光通信和服务器链。A/H 关注光模块/CPO、存储、激光雷达、平台互联网与能源防御的开盘验证。"
+      "title": "A股港股早报：AI光通信财报接力，存储激光雷达映射与油价风险并行 + 美股盘前：CPI符合预期，AI基建财报接力领涨",
+      "updated": "2026-08-12 21:16 CST",
+      "summary": "Futunn Sparks 显示体育博彩、加密矿企、存储、SOL 储备和激光雷达领涨；公开报道显示中东与霍尔木兹不确定性推升油价，美股指数在 CPI 前小幅回落，但 Lumentum、Super Micro、CoreWeave 盘后反馈支持 AI 光通信和服务器链。A/H 关注光模块/CPO、存储、激光雷达、平台互联网与能源防御的开盘验证。 美股盘前：CPI基本符合预期，CRWV、SMCI、LITE盘前强反馈带动AI云、服务器和光通信；今晚关注CSCO与COHR的beat概率和指引质量。"
     },
     {
       "date": "2026-08-11",
