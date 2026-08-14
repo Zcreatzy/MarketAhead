@@ -1,14 +1,15 @@
 {
-  "generatedAt": "2026-08-14 08:51 CST",
+  "generatedAt": "2026-08-14 21:13 CST",
   "records": [
     {
       "date": "2026-08-14",
       "types": [
-        "AH"
+        "AH",
+        "US"
       ],
-      "title": "A股港股早报：存储和AI应用领涨，京东beat反跌考验平台承接",
-      "updated": "2026-08-14 08:51 CST",
-      "summary": "隔夜美股在PPI降温后继续偏强，Futunn Sparks显示存储概念、AI应用软件、WSB、以太坊储备和充电桩领涨；但JD.com业绩beat后ADR下跌、Cisco/Coherent等高预期科技股承压，A/H今日关注联想AI基建、京东平台承接、CPO/存储映射和高估值兑现风险。"
+      "title": "A股港股早报：存储和AI应用领涨，京东beat反跌考验平台承接 + 美股盘前：零售销售意外转弱，科技强于道指但AMAT遭负反馈",
+      "updated": "2026-08-14 21:13 CST",
+      "summary": "隔夜美股在PPI降温后继续偏强，Futunn Sparks显示存储概念、AI应用软件、WSB、以太坊储备和充电桩领涨；但JD.com业绩beat后ADR下跌、Cisco/Coherent等高预期科技股承压，A/H今日关注联想AI基建、京东平台承接、CPO/存储映射和高估值兑现风险。 7月零售销售环比意外下降0.6%，美债价格走强、纳指开盘指示强于道指；RDDT、NU、NVDA和INTC盘前价格反馈相对健康，AMAT虽业绩beat却盘前跌逾6%而仅列风险观察。今晚可验证盘后大型科技财报样本不足。"
     },
     {
       "date": "2026-08-13",
