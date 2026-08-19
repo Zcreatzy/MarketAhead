@@ -1,4 +1,4 @@
-# MarketAhead By ZC
+# MarketAhead
 
 MarketAhead is a static daily market brief for A/H markets and US premarket sessions. It turns each trading day's notes into a browsable HTML dashboard with a calendar archive backed by JSON data.
 
