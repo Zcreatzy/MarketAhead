@@ -7,6 +7,8 @@
 
 MarketAhead is a static daily market brief for A/H markets and US premarket sessions. It turns each trading day's notes into a browsable HTML dashboard with a calendar archive backed by JSON data.
 
+> Automation and model: This project uses **Codex Automation + GPT 5.6 Sol High** to generate, update, and publish each daily brief.
+
 Live site: [https://market-ahead-open.vercel.app/](https://market-ahead-open.vercel.app/)
 
 ## Overview

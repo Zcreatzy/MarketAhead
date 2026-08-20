@@ -7,6 +7,8 @@
 
 MarketAhead 是一套面向 A股、港股市场与美股盘前时段的静态每日市场简报。它将每个交易日的研究笔记整理为可浏览的 HTML 仪表盘，并通过 JSON 数据提供日历归档。
 
+> 自动化与模型：本项目利用 **Codex Automation + GPT 5.6 Sol High** 生成、更新并发布每日简报。
+
 在线站点：[https://market-ahead-open.vercel.app/](https://market-ahead-open.vercel.app/)
 
 ## 项目概览
