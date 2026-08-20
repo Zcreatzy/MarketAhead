@@ -5,13 +5,13 @@
 
 # MarketAhead
 
-MarketAhead 是一套面向 A/H 市场与美股盘前时段的静态每日市场简报。它将每个交易日的研究笔记整理为可浏览的 HTML 仪表盘，并通过 JSON 数据提供日历归档。
+MarketAhead 是一套面向 A股、港股市场与美股盘前时段的静态每日市场简报。它将每个交易日的研究笔记整理为可浏览的 HTML 仪表盘，并通过 JSON 数据提供日历归档。
 
 在线站点：[https://market-ahead-open.vercel.app/](https://market-ahead-open.vercel.app/)
 
 ## 项目概览
 
-- 在同一个静态页面展示 A/H 早报与美股盘前简报
+- 在同一个静态页面展示 A股港股早报与美股盘前简报
 - 通过日历浏览历史市场简报
 - 每日归档数据存放于 `history/data/`
 - 使用 `history/manifest.json` 提供归档导航元数据
