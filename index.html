@@ -490,7 +490,7 @@
     document.documentElement.lang = isEn ? 'en' : 'zh-CN';
     document.body.classList.toggle('lang-en', isEn);
     document.title = isEn ? 'MarketAhead By ZC' : 'MarketAhead By ZC';
-    recordTitle.textContent = '每日盘前沙盘推演 by Zcreatzy';
+    recordTitle.textContent = isEn ? 'Daily Premarket Wargame by Zcreatzy' : '每日盘前沙盘推演 by Zcreatzy';
     ahTitle.textContent = isEn ? 'A/H Morning Brief' : 'A股港股早报';
     usTitle.textContent = isEn ? 'US Premarket Brief' : '美股盘前简报';
     ahTime.textContent = isEn ? toNewYorkTime(loadedTimes.AH || ahTime.textContent) : (loadedTimes.AH || ahTime.textContent);
