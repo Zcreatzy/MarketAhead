@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MarketAhead By ZC</title>
   <meta name="description" content="A股港股早报与美股盘前简报的每日图文汇总。">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('marketAheadTheme')==='dark'?'dark':'light';}catch(e){document.documentElement.dataset.theme='light';}</script>
   <style>
     :root{
       color-scheme:light;
@@ -14,6 +15,8 @@
       --soft:rgba(255,255,255,.74);
       --glass:rgba(255,255,255,.58);
       --surface:rgba(255,255,255,.88);
+      --opaque-surface:#fff;
+      --opaque-panel:#fff;
       --ink:#14202b;
       --muted:#607181;
       --line:rgba(126,145,164,.22);
@@ -31,6 +34,29 @@
       --soft-shadow:0 16px 34px rgba(31,44,57,.10);
       --glow:0 0 0 1px rgba(255,255,255,.72),0 18px 42px rgba(0,116,129,.10);
       --ease-out:cubic-bezier(.23,1,.32,1);
+    }
+    :root[data-theme="dark"]{
+      color-scheme:dark;
+      --bg:#07111b;
+      --panel:rgba(13,25,38,.78);
+      --panel-strong:rgba(18,33,49,.90);
+      --soft:rgba(17,31,46,.80);
+      --glass:rgba(13,27,42,.74);
+      --surface:rgba(20,36,52,.92);
+      --opaque-surface:#142434;
+      --opaque-panel:#101f2e;
+      --ink:#e8f1f7;
+      --muted:#a2b3c2;
+      --line:rgba(148,163,184,.22);
+      --teal:#45d4df;
+      --cyan:#38bdf8;
+      --amber:#fbbf24;
+      --green:#34d399;
+      --red:#fb7185;
+      --violet:#a78bfa;
+      --shadow:0 30px 84px rgba(0,0,0,.38);
+      --soft-shadow:0 18px 38px rgba(0,0,0,.26);
+      --glow:0 0 0 1px rgba(148,163,184,.10),0 18px 42px rgba(69,212,223,.10);
     }
     body.color-red-up{
       --bull:var(--red);
@@ -103,7 +129,7 @@
     .calendar-grid a.active.has-ah:after{box-shadow:0 0 0 2px #fff,0 0 0 4px rgba(57,255,136,.38)}.calendar-grid a.active.has-us:before{box-shadow:0 0 0 2px #fff,0 0 0 4px rgba(255,159,26,.34)}
     .history-legend{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;color:var(--muted);font-size:12px}
     .history-legend i{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:4px}.history-legend span:first-child i{background:#39ff88}.history-legend span:last-child i{background:#ff9f1a}
-    .record-banner{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px;padding:12px 14px}.record-banner strong{font-size:16px}.record-banner span{color:var(--muted);font-size:12px}.banner-controls{display:flex;align-items:center;gap:8px;margin-left:auto}.color-toggle,.lang-toggle{display:flex;gap:4px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.82)}.color-toggle button,.lang-toggle button{border:0;border-radius:9px;background:transparent;color:var(--muted);cursor:pointer;font:inherit;font-size:12px;font-weight:760;padding:5px 8px;transition:transform 140ms var(--ease-out),background 180ms var(--ease-out),color 180ms var(--ease-out)}.color-toggle button:active,.lang-toggle button:active{transform:scale(.97)}.color-toggle button.active,.lang-toggle button.active{background:linear-gradient(145deg,var(--teal),#0d9488);color:#fff}.color-toggle button.active{background:linear-gradient(145deg,var(--bull),color-mix(in srgb,var(--bull) 74%,#fff))}
+    .record-banner{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px;padding:12px 14px}.record-banner strong{font-size:16px}.record-banner span{color:var(--muted);font-size:12px}.banner-controls{display:flex;align-items:center;gap:8px;margin-left:auto}.color-toggle,.theme-toggle,.lang-toggle{display:flex;gap:4px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.82)}.color-toggle button,.theme-toggle button,.lang-toggle button{border:0;border-radius:9px;background:transparent;color:var(--muted);cursor:pointer;font:inherit;font-size:12px;font-weight:760;padding:5px 8px;transition:transform 140ms var(--ease-out),background 180ms var(--ease-out),color 180ms var(--ease-out)}.color-toggle button:active,.theme-toggle button:active,.lang-toggle button:active{transform:scale(.97)}.color-toggle button.active,.theme-toggle button[aria-pressed="true"],.lang-toggle button.active{background:linear-gradient(145deg,var(--teal),#0d9488);color:#fff}.color-toggle button.active{background:linear-gradient(145deg,var(--bull),color-mix(in srgb,var(--bull) 74%,#fff))}
     .us-sector-panel{margin-top:14px;border:1px solid rgba(255,255,255,.68);border-radius:16px;background:linear-gradient(145deg,var(--glass),rgba(255,255,255,.44));padding:12px;box-shadow:var(--glow);backdrop-filter:saturate(160%) blur(18px);-webkit-backdrop-filter:saturate(160%) blur(18px)}
     .us-sector-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
     .us-sector-head b{display:block;font-size:14px;line-height:1.25}.us-sector-head span{color:var(--muted);font-size:11px;line-height:1.35;text-align:right}
@@ -135,11 +161,24 @@
     .word-cloud{min-height:184px;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:8px 12px;padding:12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);box-shadow:0 1px 0 rgba(255,255,255,.84);overflow:visible}.word-cloud span{display:inline-block;position:relative;padding:3px 4px;border-radius:5px;font-weight:780;line-height:1;white-space:nowrap;cursor:help;outline:none;transition:transform 180ms var(--ease-out),text-shadow 180ms var(--ease-out)}.word-cloud span:hover,.word-cloud span:focus{transform:translateY(-2px) scale(1.04);text-shadow:0 8px 18px rgba(20,31,44,.14)}.word-cloud span[data-note]:hover:after,.word-cloud span[data-note]:focus:after{content:attr(data-note);position:absolute;z-index:20;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);width:min(270px,72vw);padding:10px 12px;border-radius:12px;background:rgba(23,33,43,.90);color:#fff;box-shadow:0 12px 28px rgba(21,29,38,.24);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);font-size:12px;font-weight:520;line-height:1.45;text-align:left;white-space:normal}.word-cloud .w1{font-size:13px;opacity:.78}.word-cloud .w2{font-size:16px}.word-cloud .w3{font-size:20px}.word-cloud .w4{font-size:25px}.word-cloud .w5{font-size:31px}.word-cloud .bull{color:var(--bull)}.word-cloud .bear{color:var(--bear)}.word-cloud .neutral{color:#d89b00}.cloud-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:10px;color:var(--muted);font-size:12px}.cloud-legend i{width:8px;height:8px;display:inline-block;border-radius:999px;margin-right:5px}.bull-dot{background:var(--bull)}.bear-dot{background:var(--bear)}.neutral-dot{background:#eab308}
     .risk-list{display:grid;gap:8px}.risk-item{display:grid;grid-template-columns:8px minmax(0,1fr);gap:8px;font-size:13px}.risk-dot{width:8px;height:8px;border-radius:999px;margin-top:7px;background:var(--amber);box-shadow:0 0 0 4px rgba(180,83,9,.10)}.risk-dot.high{background:var(--bear);box-shadow:0 0 0 4px color-mix(in srgb,var(--bear) 14%,transparent)}.risk-dot.low{background:var(--bull);box-shadow:0 0 0 4px color-mix(in srgb,var(--bull) 14%,transparent)}.positive{color:var(--bull);font-weight:700}.negative{color:var(--bear);font-weight:700}.watch{color:var(--amber);font-weight:700}.takeaway p .positive,.takeaway p .negative,.takeaway p .watch{border-radius:6px;padding:1px 3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}.takeaway p .positive{background:color-mix(in srgb,var(--bull) 11%,transparent)}.takeaway p .negative{background:color-mix(in srgb,var(--bear) 11%,transparent)}.takeaway p .watch{background:rgba(180,83,9,.11)}.source-line{color:var(--muted);font-size:12px}.note{padding:18px 22px;margin-top:18px;color:var(--muted);font-size:13px}.empty{padding:18px;color:var(--muted)}
     .news-title,.stock-name,.sector-tile b,.risk-item b{font-size:15px;line-height:1.42}.module>p:not(.source-line),.news-detail,.asset-row,.stock-card p,.sector-tile span,.logic-step,.risk-item p{font-size:14px;line-height:1.62}
+    :root[data-theme="dark"] body{background:linear-gradient(115deg,rgba(69,212,223,.09),transparent 30%),linear-gradient(255deg,rgba(167,139,250,.08),transparent 28%),linear-gradient(180deg,#050b12 0%,var(--bg) 48%,#09131d 100%)}
+    :root[data-theme="dark"] body:before{background-image:linear-gradient(rgba(69,212,223,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(69,212,223,.05) 1px,transparent 1px)}
+    :root[data-theme="dark"] .panel{border-color:rgba(148,163,184,.16);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.05)}
+    :root[data-theme="dark"] .calendar-window,:root[data-theme="dark"] .spark-row,:root[data-theme="dark"] .news-item,:root[data-theme="dark"] .sector-tile,:root[data-theme="dark"] .stock-card,:root[data-theme="dark"] .word-cloud,:root[data-theme="dark"] .color-toggle,:root[data-theme="dark"] .theme-toggle,:root[data-theme="dark"] .lang-toggle{box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+    :root[data-theme="dark"] .calendar-grid a{background:rgba(20,36,52,.88);box-shadow:0 1px 0 rgba(255,255,255,.04)}
+    :root[data-theme="dark"] .calendar-grid a.has-ah:after,:root[data-theme="dark"] .calendar-grid a.has-us:before{box-shadow:0 0 0 2px #142434}
+    :root[data-theme="dark"] .us-sector-panel{background:linear-gradient(145deg,var(--glass),rgba(20,36,52,.66));border-color:rgba(148,163,184,.16)}
+    :root[data-theme="dark"] .brief-header{border-color:rgba(148,163,184,.14);background:linear-gradient(180deg,rgba(24,42,59,.90),rgba(13,25,38,.64))}
+    :root[data-theme="dark"] .collapsible-news{background:linear-gradient(180deg,rgba(20,36,52,.92),rgba(13,25,38,.78))}
+    :root[data-theme="dark"] .takeaway{background:linear-gradient(135deg,rgba(15,49,57,.88),rgba(20,36,52,.78))}
+    :root[data-theme="dark"] .news-tag.geo{background:rgba(251,113,133,.14);color:#fda4af}:root[data-theme="dark"] .news-tag.tech{background:rgba(52,211,153,.14);color:#6ee7b7}:root[data-theme="dark"] .news-tag.earn{background:rgba(251,191,36,.14);color:#fcd34d}
+    :root[data-theme="dark"] .bar{background:#26394a;box-shadow:inset 0 1px 2px rgba(0,0,0,.32)}
+    :root[data-theme="dark"] .logic-step:before{background:linear-gradient(135deg,#143947,#142434);box-shadow:0 6px 14px rgba(69,212,223,.10)}
     @keyframes barSweep{from{transform:scaleX(.12);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
     @media(max-width:1180px){.page-shell{grid-template-columns:1fr}.history-sidebar{position:static}.brief-grid{grid-template-columns:1fr}}
     @media(max-width:760px){main{width:min(100% - 20px,1860px);padding-top:12px}.record-banner{flex-wrap:wrap}.banner-controls{width:100%;margin-left:0;flex-wrap:wrap}.module-grid,.sector-board,.stock-picks{grid-template-columns:1fr}.brief-header{flex-direction:column}.brief-time{text-align:left}.news-item{grid-template-columns:1fr}.word-cloud{min-height:148px}.word-cloud .w5{font-size:26px}.word-cloud .w4{font-size:22px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.module{opacity:1;transform:none}}
-    @media(prefers-reduced-transparency:reduce){.panel,.us-sector-panel{background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none}.module,.calendar-window,.spark-row,.news-item,.sector-tile,.stock-card,.word-cloud,.lang-toggle,.color-toggle{background:#fff}}
+    @media(prefers-reduced-transparency:reduce){.panel,.us-sector-panel{background:var(--opaque-panel);backdrop-filter:none;-webkit-backdrop-filter:none}.module,.calendar-window,.spark-row,.news-item,.sector-tile,.stock-card,.word-cloud,.lang-toggle,.theme-toggle,.color-toggle{background:var(--opaque-surface)}}
     @media(prefers-contrast:more){:root{--line:rgba(71,85,105,.48);--muted:#425466}.panel,.module,.news-item,.sector-tile,.stock-card,.word-cloud{border-color:var(--line)}}
   </style>
 </head>
@@ -193,7 +232,7 @@
 <!-- US_SECTOR_PANEL_EN_END --></template>
 </aside>
 <section class="history-stage">
-  <div class="record-banner panel"><strong id="record-title">AI🐶军师的每日盘前沙盘推演 via GPT5.5 medium, created by ZC</strong><span id="record-meta">正在读取归档...</span><div class="banner-controls"><div class="color-toggle" aria-label="涨跌颜色"><button type="button" data-color-mode="green-up">绿涨红跌</button><button type="button" data-color-mode="red-up">红涨绿跌</button></div><div class="lang-toggle" aria-label="Language"><button type="button" data-lang="zh">中文</button><button type="button" data-lang="en">EN</button></div></div></div>
+  <div class="record-banner panel"><strong id="record-title">每日盘前沙盘推演 by Zcreatzy</strong><span id="record-meta">正在读取归档...</span><div class="banner-controls"><div class="color-toggle" aria-label="涨跌颜色"><button type="button" data-color-mode="green-up">绿涨红跌</button><button type="button" data-color-mode="red-up">红涨绿跌</button></div><div class="theme-toggle"><button type="button" id="theme-toggle" aria-label="切换至暗夜模式" aria-pressed="false">🌙 暗夜</button></div><div class="lang-toggle" aria-label="Language"><button type="button" data-lang="zh">中文</button><button type="button" data-lang="en">EN</button></div></div></div>
   <section class="brief-grid">
     <article class="brief panel" id="a-h-brief"><div class="brief-header"><div><div class="brief-kicker">Asia Morning</div><h2>A股港股早报</h2></div><div class="brief-time" id="ah-time"><!-- A_H_TIME_START -->
 2026-08-20 11:18 CST
@@ -355,12 +394,14 @@
 (function(){
   var currentLang = ((navigator.language || '').toLowerCase().indexOf('zh') === 0) ? 'zh' : 'en';
   var currentColorMode = localStorage.getItem('marketAheadColorMode') === 'red-up' ? 'red-up' : 'green-up';
+  var currentTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
   var zhMonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var dowsByLang = {zh:['一','二','三','四','五','六','日'],en:['Mon','Tue','Wed','Thu','Fri','Sat','Sun']};
   var grid = document.getElementById('calendar-grid');
   var title = document.getElementById('calendar-title');
   var shortTitle = document.getElementById('calendar-short');
   var recordTitle = document.getElementById('record-title');
+  var themeToggle = document.getElementById('theme-toggle');
   var meta = document.getElementById('record-meta');
   var ahContent = document.getElementById('ah-content');
   var usContent = document.getElementById('us-content');
@@ -449,7 +490,7 @@
     document.documentElement.lang = isEn ? 'en' : 'zh-CN';
     document.body.classList.toggle('lang-en', isEn);
     document.title = isEn ? 'MarketAhead By ZC' : 'MarketAhead By ZC';
-    recordTitle.textContent = isEn ? 'AI🐶 Strategist Daily Premarket Wargame via GPT5.5 medium, created by ZC' : 'AI🐶军师的每日盘前沙盘推演 via GPT5.5 medium, created by ZC';
+    recordTitle.textContent = '每日盘前沙盘推演 by Zcreatzy';
     ahTitle.textContent = isEn ? 'A/H Morning Brief' : 'A股港股早报';
     usTitle.textContent = isEn ? 'US Premarket Brief' : '美股盘前简报';
     ahTime.textContent = isEn ? toNewYorkTime(loadedTimes.AH || ahTime.textContent) : (loadedTimes.AH || ahTime.textContent);
@@ -467,6 +508,7 @@
       var mode = button.getAttribute('data-color-mode');
       button.textContent = currentLang === 'en' ? (mode === 'red-up' ? 'Red Up' : 'Green Up') : (mode === 'red-up' ? '红涨绿跌' : '绿涨红跌');
     });
+    updateThemeToggle();
   }
   function applyColorMode(){
     document.body.classList.toggle('color-red-up', currentColorMode === 'red-up');
@@ -474,6 +516,17 @@
       button.classList.toggle('active', button.getAttribute('data-color-mode') === currentColorMode);
       button.setAttribute('aria-pressed', button.classList.contains('active') ? 'true' : 'false');
     });
+  }
+  function updateThemeToggle(){
+    if(!themeToggle){return;}
+    var isDark = currentTheme === 'dark';
+    themeToggle.textContent = currentLang === 'en' ? (isDark ? '☀ Light' : '🌙 Dark') : (isDark ? '☀ 日间' : '🌙 暗夜');
+    themeToggle.setAttribute('aria-label', currentLang === 'en' ? (isDark ? 'Switch to light theme' : 'Switch to dark theme') : (isDark ? '切换至日间模式' : '切换至暗夜模式'));
+    themeToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+  }
+  function applyTheme(){
+    document.documentElement.dataset.theme = currentTheme;
+    updateThemeToggle();
   }
   function cleanNewsTitlePrefixes(scope){
     var root = scope || document;
@@ -535,6 +588,14 @@
       applyColorMode();
     });
   });
+  if(themeToggle){
+    themeToggle.addEventListener('click', function(){
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('marketAheadTheme', currentTheme);
+      applyTheme();
+    });
+  }
+  applyTheme();
   applyColorMode();
   applyLanguage();
   fetch('history/manifest.json', {cache:'no-store'}).then(function(res){return res.json();}).then(function(manifest){
