@@ -504,8 +504,9 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
   font-size:var(--text-xs);
   padding-top:var(--space-sm);
 }
+.history-legend b{font-weight:inherit}
 
-.content{min-width:0}
+.content,.history-stage{min-width:0}
 .record-banner{
   display:flex;
   align-items:center;
@@ -708,6 +709,7 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
   border-top:2px solid var(--color-accent);
   background:var(--color-paper-2);
 }
+.takeaway p span.positive,.takeaway p span.negative,.takeaway p span.watch{padding-inline:0}
 .module p,.module li{
   color:var(--color-ink-2);
   font-size:var(--text-base);
@@ -761,6 +763,9 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
   font-family:var(--font-display);
   font-style:normal;
 }
+.stock-card,.stock-head,.stock-head>div{min-width:0}
+.stock-head{flex-wrap:wrap}
+.stock-name,.stock-ticker{overflow-wrap:anywhere}
 .word-cloud .hot{color:var(--color-accent)}
 .up{color:var(--bull)}
 .down{color:var(--bear)}
@@ -837,9 +842,24 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
   .history-sidebar{position:sticky;top:var(--space-lg);max-height:calc(100dvh - var(--space-xl));overflow:auto}
   .brief-grid{grid-template-columns:minmax(0,1fr);gap:var(--space-2xl)}
 }
+@media (max-width:74.99rem){
+  .stock-picks{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width:60rem) and (max-width:74.99rem){
+  .record-banner{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end}
+  .record-banner>strong{grid-column:1/-1}
+  .record-meta-stack{grid-column:1;overflow-wrap:anywhere}
+  .record-meta-stack small{white-space:normal}
+  .banner-controls{grid-column:2}
+  .word-cloud span{max-width:100%;overflow-wrap:anywhere;text-align:center;white-space:normal}
+}
 @media (min-width:90rem){
   .page-shell{grid-template-columns:20rem minmax(0,1fr);gap:var(--space-2xl)}
   .brief-grid{gap:var(--space-3xl)}
+}
+@media (max-width:47.99rem){
+  .stock-picks{grid-template-columns:minmax(0,1fr)}
+  .word-cloud span{max-width:100%;overflow-wrap:anywhere;text-align:center;white-space:normal}
 }
 @media (max-width:39.99rem){
   main{padding:var(--space-md)}
@@ -862,7 +882,7 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
     transition-duration:150ms!important;
   }
 }
-  </style>
+</style>
 </head>
 <body>
 <main>
@@ -877,7 +897,7 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
     <div class="calendar-month"><span id="calendar-title">历史简报</span><span id="calendar-short">--</span></div>
     <div class="calendar-grid" id="calendar-grid"><span class="dow">一</span><span class="dow">二</span><span class="dow">三</span><span class="dow">四</span><span class="dow">五</span><span class="dow">六</span><span class="dow">日</span></div>
   </div>
-  <div class="history-legend"><span><i></i>A/H</span><span><i></i>US</span></div>
+  <div class="history-legend"><span><i></i><b data-market-legend="ah">A股/港股</b></span><span><i></i><b data-market-legend="us">美股</b></span></div>
   <section class="us-sector-panel" aria-label="隔夜美股板块行情">
     <!-- US_SECTOR_PANEL_START -->
 <div class="us-ranking-block industry-ranking"><div class="us-sector-head"><b>隔夜美股行业排行</b><span>正数Top5 / 倒数Top5 · 2026-08-21 08:53 CST</span></div>
@@ -1215,6 +1235,10 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
     document.body.classList.toggle('lang-en', isEn);
     document.title = isEn ? 'MarketAhead By ZC' : 'MarketAhead By ZC';
     recordTitle.textContent = isEn ? 'Daily Premarket Wargame by Zcreatzy' : '每日盘前沙盘推演 by Zcreatzy';
+    var ahLegend = document.querySelector('[data-market-legend="ah"]');
+    var usLegend = document.querySelector('[data-market-legend="us"]');
+    if(ahLegend){ahLegend.textContent = isEn ? 'A Shares / HK' : 'A股/港股';}
+    if(usLegend){usLegend.textContent = isEn ? 'US Market' : '美股';}
     Array.prototype.forEach.call(document.querySelectorAll('.brief-view-toggle button'), function(button){
       button.textContent = button.getAttribute(isEn ? 'data-label-en' : 'data-label-zh') || button.textContent;
     });
