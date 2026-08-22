@@ -521,11 +521,7 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
   box-shadow:none;
 }
 .record-heading{
-  display:flex;
-  align-items:baseline;
   flex:1 1 24rem;
-  flex-wrap:wrap;
-  gap:var(--space-xs) var(--space-sm);
   min-width:0;
 }
 .record-heading strong{
@@ -539,10 +535,11 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
 .research-disclaimer{
   max-width:34rem;
   color:var(--color-ink-2);
-  font-family:var(--font-body);
-  font-size:var(--text-sm);
-  font-weight:600;
-  line-height:1.45;
+  font-family:inherit;
+  font-size:inherit;
+  font-weight:700;
+  line-height:1.35;
+  opacity:1;
   overflow-wrap:anywhere;
 }
 .record-meta-stack{
@@ -556,6 +553,7 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
 }
 .record-meta-stack small{
   color:var(--color-muted);
+  font-size:var(--text-xs);
   letter-spacing:.025em;
   line-height:1.35;
   opacity:.72;
@@ -983,7 +981,7 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
 <!-- US_SECTOR_PANEL_EN_END --></template>
 </aside>
 <section class="history-stage">
-  <div class="record-banner panel"><div class="record-heading"><strong id="record-title">每日盘前预测器</strong><b id="research-disclaimer" class="research-disclaimer">仅用于市场研究与信息整理，不构成任何投资建议</b></div><div class="record-meta-stack"><span id="record-meta">正在读取归档...</span><small>powered by Codex Automation + GPT 5.6 Sol</small></div><div class="banner-controls"><div class="color-toggle" aria-label="涨跌颜色"><button type="button" data-color-mode="green-up">绿涨红跌</button><button type="button" data-color-mode="red-up">红涨绿跌</button></div><div class="theme-toggle"><button type="button" id="theme-toggle" aria-label="切换至暗夜模式" aria-pressed="false">🌙 暗夜</button></div><div class="lang-toggle" aria-label="Language"><button type="button" data-lang="zh">中文</button><button type="button" data-lang="en">EN</button></div></div></div>
+  <div class="record-banner panel"><div class="record-heading"><strong id="record-title">每日盘前预测器</strong></div><div class="record-meta-stack"><span id="record-meta">正在读取归档...</span><small>powered by Codex Automation + GPT 5.6 Sol</small><small id="research-disclaimer" class="research-disclaimer">仅用于市场研究与信息整理，不构成任何投资建议</small></div><div class="banner-controls"><div class="color-toggle" aria-label="涨跌颜色"><button type="button" data-color-mode="green-up">绿涨红跌</button><button type="button" data-color-mode="red-up">红涨绿跌</button></div><div class="theme-toggle"><button type="button" id="theme-toggle" aria-label="切换至暗夜模式" aria-pressed="false">🌙 暗夜</button></div><div class="lang-toggle" aria-label="Language"><button type="button" data-lang="zh">中文</button><button type="button" data-lang="en">EN</button></div></div></div>
   <div class="brief-view-toggle" role="group" aria-label="Brief view"><button type="button" data-brief-view="ah" data-label-zh="A股/港股" data-label-en="A Shares / HK" aria-pressed="true">A股/港股</button><button type="button" data-brief-view="us" data-label-zh="美股" data-label-en="US Market" aria-pressed="false">美股</button></div>
   <section class="brief-grid">
     <article class="brief panel" id="a-h-brief"><div class="brief-header"><div class="brief-kicker">Asia Morning</div><div class="brief-time" id="ah-time"><!-- A_H_TIME_START -->
