@@ -1121,7 +1121,6 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
 </div>
 <!-- US_BRIEF_END --></div></article>
   </section>
-  <p class="note panel">提示：历史内容已迁移到 <code>history/data/YYYY-MM-DD.json</code>，日期页使用 <code>history/?date=YYYY-MM-DD</code> 读取渲染；首页日历由 <code>history/manifest.json</code> 自动生成。</p>
 </section>
 </div>
 </main>
@@ -1144,7 +1143,6 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
   var ahTime = document.getElementById('ah-time');
   var usTime = document.getElementById('us-time');
   var sectorPanel = document.querySelector('.us-sector-panel');
-  var note = document.querySelector('.note');
   var loaded = {AH:null,US:null};
   var loadedTimes = {AH:'',US:''};
   var currentRecords = [];
@@ -1244,7 +1242,6 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
     });
     ahTime.textContent = isEn ? toNewYorkTime(loadedTimes.AH || ahTime.textContent) : (loadedTimes.AH || ahTime.textContent);
     usTime.textContent = isEn ? toNewYorkTime(loadedTimes.US || usTime.textContent) : (loadedTimes.US || usTime.textContent);
-    if(note){note.innerHTML = isEn ? 'Note: archived records load from <code>history/data/YYYY-MM-DD.json</code>; date pages render through <code>history/?date=YYYY-MM-DD</code>; the homepage calendar is generated from <code>history/manifest.json</code>.' : '提示：历史内容已迁移到 <code>history/data/YYYY-MM-DD.json</code>，日期页使用 <code>history/?date=YYYY-MM-DD</code> 读取渲染；首页日历由 <code>history/manifest.json</code> 自动生成。';}
     if(sectorPanel){sectorPanel.innerHTML = isEn ? localizeNewYorkTimes(sectorEn) : sectorZh;}
     if(currentRecords.length){renderCalendar(currentRecords);}
     if(loaded.AH){ahContent.innerHTML = isEn ? loadedEn.AH : loaded.AH;cleanNewsTitlePrefixes(ahContent);revealModules(ahContent);}
