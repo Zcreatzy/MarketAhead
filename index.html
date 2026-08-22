@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MarketAhead By ZC</title>
   <meta name="description" content="A股港股早报与美股盘前简报的每日图文汇总。">
-  <script>try{document.documentElement.dataset.theme=localStorage.getItem('marketAheadTheme')==='dark'?'dark':'light';}catch(e){document.documentElement.dataset.theme='light';}</script>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('marketAheadTheme')==='dark'?'dark':'light';document.documentElement.dataset.briefView=localStorage.getItem('marketAheadBriefView')==='us'?'us':'ah';}catch(e){document.documentElement.dataset.theme='light';document.documentElement.dataset.briefView='ah';}</script>
   <style>
     :root{
       color-scheme:light;
@@ -185,6 +185,679 @@
     @media(prefers-reduced-transparency:reduce){.panel,.us-sector-panel{background:var(--opaque-panel);backdrop-filter:none;-webkit-backdrop-filter:none}.module,.calendar-window,.spark-row,.news-item,.sector-tile,.stock-card,.word-cloud,.lang-toggle,.theme-toggle,.color-toggle{background:var(--opaque-surface)}}
     @media(prefers-contrast:more){:root{--line:rgba(71,85,105,.48);--muted:#425466}.panel,.module,.news-item,.sector-tile,.stock-card,.word-cloud{border-color:var(--line)}}
   </style>
+  <style id="hallmark-redesign">
+/* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V4
+ * Hallmark · genre: editorial · macrostructure: Workbench · theme: Atelier · tone: luxury
+ * audience: high-frequency owner + public investors · use: rapid scan with optional depth
+ * nav: N9 edge-aligned minimal · feature: F3 tabular spec · footer: preserved-none · enrichment: none
+ */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+
+:root{
+  --color-paper:oklch(97% 0.012 78);
+  --color-paper-2:oklch(94% 0.014 78);
+  --color-paper-3:oklch(91% 0.016 78);
+  --color-surface:oklch(98% 0.009 78);
+  --color-surface-raised:oklch(99% 0.007 78);
+  --color-ink:oklch(19% 0.016 58);
+  --color-ink-2:oklch(29% 0.014 58);
+  --color-muted:oklch(46% 0.012 62);
+  --color-rule:oklch(78% 0.018 72);
+  --color-rule-strong:oklch(58% 0.03 68);
+  --color-accent:oklch(54% 0.105 67);
+  --color-accent-soft:oklch(90% 0.04 75);
+  --color-accent-ink:oklch(98% 0.008 78);
+  --color-focus:oklch(47% 0.15 63);
+  --color-up:oklch(49% 0.15 150);
+  --color-down:oklch(51% 0.19 28);
+  --color-info:oklch(50% 0.12 242);
+  --color-overlay:oklch(19% 0.016 58 / .08);
+  --color-shadow:oklch(19% 0.016 58 / .10);
+
+  --font-display:"Cormorant Garamond","Songti SC","STSong",serif;
+  --font-body:"IBM Plex Sans","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --font-data:"IBM Plex Mono","SFMono-Regular","Cascadia Mono",monospace;
+
+  --space-3xs:.125rem;
+  --space-2xs:.25rem;
+  --space-xs:.5rem;
+  --space-sm:.75rem;
+  --space-md:1rem;
+  --space-lg:1.5rem;
+  --space-xl:2.5rem;
+  --space-2xl:4rem;
+  --space-3xl:6rem;
+
+  --text-xs:.72rem;
+  --text-sm:.82rem;
+  --text-base:1rem;
+  --text-md:1.25rem;
+  --text-lg:1.5625rem;
+  --text-xl:1.953rem;
+  --text-2xl:2.441rem;
+
+  --radius-control:.25rem;
+  --radius-card:.375rem;
+  --radius-panel:.5rem;
+  --rule-hairline:1px;
+  --shadow-whisper:0 1px 2px var(--color-shadow);
+  --shadow-panel:0 18px 48px -36px var(--color-shadow);
+
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --ease-in:cubic-bezier(.7,0,.84,0);
+  --ease-in-out:cubic-bezier(.65,0,.35,1);
+  --dur-micro:120ms;
+  --dur-short:260ms;
+  --dur-long:420ms;
+
+  --z-base:1;
+  --z-raised:10;
+  --z-sticky:200;
+  --z-tooltip:600;
+
+  --bg:var(--color-paper);
+  --panel:var(--color-surface);
+  --panel-strong:var(--color-surface-raised);
+  --soft:var(--color-paper-2);
+  --glass:var(--color-surface);
+  --surface:var(--color-surface);
+  --opaque-surface:var(--color-surface);
+  --opaque-panel:var(--color-surface);
+  --ink:var(--color-ink);
+  --muted:var(--color-muted);
+  --line:var(--color-rule);
+  --teal:var(--color-accent);
+  --cyan:var(--color-info);
+  --amber:var(--color-accent);
+  --green:var(--color-up);
+  --red:var(--color-down);
+  --violet:var(--color-accent);
+  --bull:var(--color-up);
+  --bear:var(--color-down);
+  --bull-glow:var(--color-up);
+  --bear-glow:var(--color-down);
+  --shadow:var(--shadow-panel);
+  --soft-shadow:var(--shadow-whisper);
+  --glow:var(--shadow-whisper);
+}
+
+:root[data-theme="dark"]{
+  --color-paper:oklch(15% 0.014 58);
+  --color-paper-2:oklch(18% 0.016 58);
+  --color-paper-3:oklch(22% 0.018 58);
+  --color-surface:oklch(20% 0.016 58);
+  --color-surface-raised:oklch(24% 0.018 58);
+  --color-ink:oklch(94% 0.012 78);
+  --color-ink-2:oklch(84% 0.012 76);
+  --color-muted:oklch(70% 0.012 72);
+  --color-rule:oklch(34% 0.022 64);
+  --color-rule-strong:oklch(55% 0.04 66);
+  --color-accent:oklch(73% 0.105 71);
+  --color-accent-soft:oklch(28% 0.035 68);
+  --color-accent-ink:oklch(17% 0.015 58);
+  --color-focus:oklch(81% 0.13 74);
+  --color-up:oklch(69% 0.15 150);
+  --color-down:oklch(70% 0.17 28);
+  --color-info:oklch(72% 0.11 242);
+  --color-overlay:oklch(5% 0.01 58 / .26);
+  --color-shadow:oklch(5% 0.01 58 / .34);
+}
+
+html,body{overflow-x:clip}
+html{background:var(--color-paper)}
+body{
+  color:var(--color-ink);
+  background:var(--color-paper);
+  font-family:var(--font-body);
+  font-size:var(--text-base);
+  font-weight:400;
+  line-height:1.58;
+  text-rendering:optimizeLegibility;
+}
+body::before{
+  background-image:
+    linear-gradient(to right,var(--color-rule) var(--rule-hairline),transparent var(--rule-hairline)),
+    linear-gradient(to bottom,var(--color-rule) var(--rule-hairline),transparent var(--rule-hairline));
+  background-size:4rem 4rem;
+  opacity:.14;
+  mask-image:linear-gradient(to bottom,var(--color-ink),transparent 46rem);
+}
+body::after{
+  height:var(--rule-hairline);
+  background:var(--color-accent);
+  box-shadow:none;
+}
+main{
+  width:100%;
+  max-width:116rem;
+  margin-inline:auto;
+  padding:var(--space-md);
+}
+h1,h2,h3,.brief-title,.brief-header h2,.module h3,.us-sector-head b{
+  min-width:0;
+  overflow-wrap:anywhere;
+  color:var(--color-ink);
+  font-family:var(--font-display);
+  font-style:normal;
+  letter-spacing:-.018em;
+}
+p,li{max-width:75ch}
+a,button{font-family:var(--font-body)}
+a{color:inherit}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
+  outline:2px solid var(--color-focus);
+  outline-offset:2px;
+}
+button:disabled,[aria-disabled="true"]{cursor:not-allowed;opacity:.5}
+button[aria-busy="true"]{cursor:progress}
+button[aria-invalid="true"],[data-state="error"]{outline:2px solid var(--color-down);outline-offset:2px}
+button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
+
+.page-shell{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:var(--space-lg);
+  align-items:start;
+}
+.panel{
+  border:var(--rule-hairline) solid var(--color-rule);
+  border-radius:var(--radius-panel);
+  background:var(--color-surface);
+  box-shadow:var(--shadow-panel);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.history-sidebar{
+  position:static;
+  padding:var(--space-md);
+  overflow:visible;
+  background:var(--color-paper-2);
+  box-shadow:none;
+}
+.history-sidebar::before,.brief::before{display:none}
+.history-sidebar h2{
+  font-size:var(--text-lg);
+  font-weight:600;
+  line-height:1.08;
+}
+.history-sidebar > p{
+  color:var(--color-muted);
+  font-size:var(--text-sm);
+}
+.calendar-window{
+  border:0;
+  border-block:var(--rule-hairline) solid var(--color-rule);
+  border-radius:0;
+  background:transparent;
+  padding:var(--space-sm) 0;
+  box-shadow:none;
+}
+.calendar-month{
+  color:var(--color-ink-2);
+  font-family:var(--font-data);
+  font-size:var(--text-xs);
+  font-weight:500;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.calendar-grid{gap:var(--space-2xs)}
+.calendar-grid span,.calendar-grid a{
+  border-radius:var(--radius-control);
+  background:transparent;
+  color:var(--color-muted);
+  font-family:var(--font-data);
+  font-size:var(--text-xs);
+  font-variant-numeric:tabular-nums;
+}
+.calendar-grid a{
+  color:var(--color-ink);
+  text-decoration:none;
+  text-decoration-thickness:var(--rule-hairline);
+  text-underline-offset:.2em;
+}
+.calendar-grid .today{
+  border-color:var(--color-accent);
+  background:var(--color-accent-soft);
+  color:var(--color-ink);
+}
+.calendar-grid .selected{
+  border-color:var(--color-accent);
+  background:var(--color-ink);
+  color:var(--color-paper);
+  box-shadow:none;
+}
+.calendar-legend{color:var(--color-muted);font-family:var(--font-data)}
+
+.us-sector-panel{
+  display:grid;
+  gap:var(--space-lg);
+  margin-top:var(--space-lg);
+  border:0;
+  border-radius:0;
+  background:transparent;
+  padding:0;
+  box-shadow:none;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.us-ranking-block{
+  border:var(--rule-hairline) solid var(--color-rule);
+  border-radius:var(--radius-card);
+  background:var(--color-surface);
+  padding:var(--space-sm);
+  box-shadow:none;
+}
+.us-sector-head{
+  gap:var(--space-xs);
+  padding-bottom:var(--space-sm);
+  margin-bottom:var(--space-sm);
+  border-bottom:var(--rule-hairline) solid var(--color-rule);
+}
+.us-sector-head b{
+  font-size:var(--text-md);
+  font-weight:600;
+  line-height:1.04;
+}
+.us-sector-head span{
+  color:var(--color-muted);
+  font-family:var(--font-data);
+  font-size:var(--text-xs);
+  font-variant-numeric:tabular-nums;
+}
+.spark-table{gap:0}
+.spark-row{
+  min-height:3.5rem;
+  gap:var(--space-sm);
+  border:0;
+  border-bottom:var(--rule-hairline) solid var(--color-rule);
+  border-radius:0;
+  background:transparent;
+  padding:var(--space-xs) 0;
+  box-shadow:none;
+  transition:background-color var(--dur-short) var(--ease-out);
+}
+.spark-row:last-child{border-bottom:0}
+.spark-name{
+  color:var(--color-ink);
+  font-family:var(--font-body);
+  font-size:var(--text-sm);
+  font-weight:600;
+}
+.spark-leader{
+  color:var(--color-muted);
+  font-family:var(--font-data);
+  font-size:var(--text-xs);
+  font-variant-numeric:tabular-nums;
+}
+.spark-change{
+  color:var(--bull);
+  font-family:var(--font-data);
+  font-size:var(--text-sm);
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+}
+.spark-change.down{color:var(--bear)}
+.spark-source{
+  border-top:var(--rule-hairline) solid var(--color-rule);
+  color:var(--color-muted);
+  font-family:var(--font-body);
+  font-size:var(--text-xs);
+  padding-top:var(--space-sm);
+}
+
+.content{min-width:0}
+.record-banner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--space-lg);
+  margin-bottom:var(--space-xl);
+  border:0;
+  border-bottom:var(--rule-hairline) solid var(--color-rule-strong);
+  border-radius:0;
+  background:transparent;
+  padding:var(--space-sm) 0 var(--space-md);
+  box-shadow:none;
+}
+.record-banner strong{
+  color:var(--color-ink);
+  font-family:var(--font-display);
+  font-size:clamp(1.65rem,3vw,2.55rem);
+  font-weight:600;
+  letter-spacing:-.025em;
+  line-height:1;
+}
+.record-meta-stack{
+  display:grid;
+  gap:var(--space-3xs);
+  min-width:0;
+  color:var(--color-muted);
+  font-family:var(--font-data);
+  font-size:var(--text-xs);
+  font-variant-numeric:tabular-nums;
+}
+.record-meta-stack small{
+  color:var(--color-muted);
+  letter-spacing:.025em;
+  line-height:1.35;
+  opacity:.72;
+  white-space:nowrap;
+}
+.banner-controls{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:var(--space-xs);
+}
+.color-toggle,.theme-toggle,.lang-toggle{
+  display:flex;
+  gap:var(--space-2xs);
+  border:var(--rule-hairline) solid var(--color-rule);
+  border-radius:var(--radius-control);
+  background:var(--color-surface);
+  padding:var(--space-2xs);
+  box-shadow:none;
+}
+.color-toggle button,.theme-toggle button,.lang-toggle button{
+  min-height:2.25rem;
+  border-radius:calc(var(--radius-control) - var(--rule-hairline));
+  color:var(--color-muted);
+  font-size:var(--text-xs);
+  font-weight:500;
+  white-space:nowrap;
+  transition:background-color var(--dur-short) var(--ease-out),color var(--dur-short) var(--ease-out),transform var(--dur-micro) var(--ease-out);
+}
+.color-toggle button.active,.theme-toggle button[aria-pressed="true"],.lang-toggle button.active{
+  background:var(--color-ink);
+  color:var(--color-paper);
+}
+.color-toggle button:active,.theme-toggle button:active,.lang-toggle button:active{transform:translateY(1px)}
+
+.brief-view-toggle{
+  position:relative;
+  z-index:var(--z-raised);
+  display:flex;
+  align-items:flex-end;
+  width:max-content;
+  margin-inline-start:var(--space-md);
+  margin-bottom:calc(var(--rule-hairline) * -1);
+}
+.brief-view-toggle button{
+  min-width:5.5rem;
+  min-height:2.75rem;
+  border:var(--rule-hairline) solid var(--color-rule);
+  border-radius:var(--radius-card) var(--radius-card) 0 0;
+  background:var(--color-paper-2);
+  color:var(--color-muted);
+  padding:var(--space-xs) var(--space-lg);
+  font-family:var(--font-data);
+  font-size:var(--text-sm);
+  font-weight:500;
+  white-space:nowrap;
+  cursor:pointer;
+  transform:translateY(var(--space-2xs));
+  transition:background-color var(--dur-short) var(--ease-out),color var(--dur-short) var(--ease-out),transform var(--dur-micro) var(--ease-out);
+}
+.brief-view-toggle button + button{margin-inline-start:calc(var(--rule-hairline) * -1)}
+.brief-view-toggle button[aria-pressed="true"]{
+  position:relative;
+  z-index:1;
+  min-height:3rem;
+  border-bottom-color:var(--color-surface);
+  background:var(--color-surface);
+  color:var(--color-ink);
+  transform:translateY(var(--rule-hairline));
+}
+.brief-view-toggle button:active{transform:translateY(var(--space-3xs))}
+
+.brief-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:var(--space-xl);
+  border:var(--rule-hairline) solid var(--color-rule);
+  border-radius:var(--radius-panel);
+  background:var(--color-surface);
+  padding:var(--space-lg);
+}
+.brief[hidden]{display:none!important}
+:root[data-brief-view="ah"] #us-brief,
+:root[data-brief-view="us"] #a-h-brief{display:none!important}
+.brief{
+  min-width:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  padding:0;
+  overflow:visible;
+}
+.brief-header{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:var(--space-md);
+  margin-bottom:var(--space-lg);
+  padding:var(--space-md) var(--space-lg);
+  border-bottom:var(--rule-hairline) solid var(--color-rule-strong);
+  background:var(--color-paper-2);
+}
+.brief-title,.brief-header h2{
+  font-size:clamp(2rem,4vw,3.5rem);
+  font-weight:600;
+  line-height:.98;
+}
+.brief-kicker{
+  color:var(--color-accent);
+  font-family:var(--font-data);
+  font-size:var(--text-xs);
+  font-weight:500;
+  letter-spacing:.08em;
+}
+.brief-time{
+  color:var(--color-muted);
+  font-family:var(--font-data);
+  font-size:var(--text-xs);
+  font-variant-numeric:tabular-nums;
+  text-align:start;
+}
+.brief-content{display:grid;gap:var(--space-lg)}
+.module{
+  position:relative;
+  border:0;
+  border-top:var(--rule-hairline) solid var(--color-rule);
+  border-radius:0;
+  background:transparent;
+  padding:var(--space-md) 0 var(--space-lg);
+  box-shadow:none;
+  overflow:visible;
+  transition:background-color var(--dur-short) var(--ease-out),border-color var(--dur-short) var(--ease-out);
+  opacity:1;
+  transform:none;
+  transition-delay:0s!important;
+}
+.module::before{display:none}
+.module h3{
+  margin-bottom:var(--space-sm);
+  font-size:var(--text-lg);
+  font-weight:600;
+  line-height:1.08;
+}
+.module > summary{
+  min-height:2.75rem;
+  color:var(--color-ink);
+  font-family:var(--font-display);
+  font-size:var(--text-lg);
+  font-weight:600;
+  line-height:1.08;
+  list-style-position:inside;
+  cursor:pointer;
+}
+.collapsible-news{background:transparent}
+.collapsible-news > summary::after{
+  border:var(--rule-hairline) solid var(--color-rule);
+  border-radius:var(--radius-control);
+  background:transparent;
+  color:var(--color-muted);
+  box-shadow:none;
+  font-family:var(--font-data);
+  font-size:var(--text-xs);
+  font-weight:500;
+}
+.takeaway{
+  border-inline-start:0;
+  border-top:2px solid var(--color-accent);
+  background:var(--color-paper-2);
+}
+.module p,.module li{
+  color:var(--color-ink-2);
+  font-size:var(--text-base);
+  line-height:1.62;
+}
+.module b,.module strong{color:var(--color-ink);font-weight:600}
+.module time,.module .meta,.updated,.source{
+  font-family:var(--font-data);
+  font-variant-numeric:tabular-nums;
+}
+.news-list{gap:0}
+.news-item{
+  border:0;
+  border-bottom:var(--rule-hairline) solid var(--color-rule);
+  border-radius:0;
+  background:transparent;
+  padding:var(--space-sm) 0;
+  box-shadow:none;
+}
+.news-item:last-child{border-bottom:0}
+.news-item::after{display:none}
+.news-item h4,.news-item strong{
+  color:var(--color-ink);
+  font-family:var(--font-body);
+  font-size:var(--text-base);
+  font-weight:600;
+}
+.news-item p{margin-bottom:0}
+.sector-grid,.stock-grid{gap:var(--space-sm)}
+.sector-tile,.stock-card{
+  border:var(--rule-hairline) solid var(--color-rule);
+  border-radius:var(--radius-card);
+  background:var(--color-surface);
+  padding:var(--space-sm);
+  box-shadow:none;
+}
+.word-cloud{
+  border:0;
+  border-radius:0;
+  background:var(--color-paper-2);
+  padding:var(--space-lg);
+  box-shadow:none;
+}
+.word-cloud span{
+  color:var(--color-ink-2);
+  font-family:var(--font-display);
+  font-style:normal;
+}
+.word-cloud .hot{color:var(--color-accent)}
+.up{color:var(--bull)}
+.down{color:var(--bear)}
+.flat{color:var(--color-muted)}
+.ticker,.change,.price,.number,.pct{
+  font-family:var(--font-data);
+  font-variant-numeric:tabular-nums;
+}
+
+:root[data-theme="dark"] body{
+  color:var(--color-ink);
+  background:var(--color-paper);
+}
+:root[data-theme="dark"] body::before{
+  background-image:
+    linear-gradient(to right,var(--color-rule) var(--rule-hairline),transparent var(--rule-hairline)),
+    linear-gradient(to bottom,var(--color-rule) var(--rule-hairline),transparent var(--rule-hairline));
+  opacity:.12;
+}
+:root[data-theme="dark"] .panel{border-color:var(--color-rule);background:var(--color-surface);box-shadow:var(--shadow-panel)}
+:root[data-theme="dark"] .history-sidebar.panel{background:var(--color-paper-2);box-shadow:none}
+:root[data-theme="dark"] .record-banner.panel,
+:root[data-theme="dark"] .brief.panel{border:0;background:transparent;box-shadow:none}
+:root[data-theme="dark"] .record-banner.panel{border-bottom:var(--rule-hairline) solid var(--color-rule-strong)}
+:root[data-theme="dark"] .brief-header{border-color:var(--color-rule-strong);background:var(--color-paper-2)}
+:root[data-theme="dark"] .calendar-window,
+:root[data-theme="dark"] .spark-row,
+:root[data-theme="dark"] .news-item,
+:root[data-theme="dark"] .module{background:transparent;box-shadow:none}
+:root[data-theme="dark"] .module{border-color:var(--color-rule)}
+:root[data-theme="dark"] .collapsible-news{background:transparent}
+:root[data-theme="dark"] .takeaway{border-top-color:var(--color-accent);background:var(--color-paper-2)}
+:root[data-theme="dark"] .us-sector-panel{border:0;background:transparent;box-shadow:none}
+:root[data-theme="dark"] .us-ranking-block,
+:root[data-theme="dark"] .sector-tile,
+:root[data-theme="dark"] .stock-card{border-color:var(--color-rule);background:var(--color-surface);box-shadow:none}
+:root[data-theme="dark"] .word-cloud{border:0;background:var(--color-paper-2);box-shadow:none}
+:root[data-theme="dark"] .color-toggle,
+:root[data-theme="dark"] .theme-toggle,
+:root[data-theme="dark"] .lang-toggle{border-color:var(--color-rule);background:var(--color-surface);box-shadow:none}
+
+@media (hover:hover) and (pointer:fine){
+  .calendar-grid a:hover{
+    background:var(--color-accent-soft);
+    color:var(--color-ink);
+    text-decoration:underline;
+  }
+  .spark-row:hover,.module:hover{background:var(--color-paper-2)}
+  .color-toggle button:hover,.theme-toggle button:hover,.lang-toggle button:hover{
+    background:var(--color-paper-3);
+    color:var(--color-ink);
+  }
+  .color-toggle button.active:hover,.theme-toggle button[aria-pressed="true"]:hover,.lang-toggle button.active:hover{
+    background:var(--color-ink);
+    color:var(--color-paper);
+  }
+  .brief-view-toggle button:not([aria-pressed="true"]):hover{
+    background:var(--color-paper-3);
+    color:var(--color-ink);
+    transform:translateY(var(--space-3xs));
+  }
+}
+@media (pointer:coarse){
+  button,.calendar-grid a{min-height:2.75rem}
+}
+@media (min-width:40rem){
+  main{padding:var(--space-lg)}
+  .history-sidebar{padding:var(--space-lg)}
+  .record-banner{padding-top:var(--space-md)}
+}
+@media (min-width:60rem){
+  main{padding:var(--space-xl)}
+  .page-shell{grid-template-columns:18rem minmax(0,1fr);gap:var(--space-xl)}
+  .history-sidebar{position:sticky;top:var(--space-lg);max-height:calc(100dvh - var(--space-xl));overflow:auto}
+  .brief-grid{grid-template-columns:minmax(0,1fr);gap:var(--space-2xl)}
+}
+@media (min-width:90rem){
+  .page-shell{grid-template-columns:20rem minmax(0,1fr);gap:var(--space-2xl)}
+  .brief-grid{gap:var(--space-3xl)}
+}
+@media (max-width:39.99rem){
+  main{padding:var(--space-md)}
+  .record-banner{align-items:flex-start;flex-direction:column}
+  .record-meta-stack{order:2}
+  .record-meta-stack small{white-space:normal}
+  .banner-controls{justify-content:flex-start;width:100%}
+  .color-toggle,.theme-toggle,.lang-toggle{max-width:100%}
+  .brief-view-toggle{max-width:100%;margin-inline-start:var(--space-xs)}
+  .brief-view-toggle button{min-width:4.75rem;padding-inline:var(--space-md)}
+  .brief-grid{padding:var(--space-md)}
+  .brief-header{grid-template-columns:minmax(0,1fr);align-items:start}
+  .us-sector-head{align-items:flex-start;flex-direction:column}
+  .module p,.module li{overflow-wrap:anywhere}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:150ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:150ms!important;
+  }
+}
+  </style>
 </head>
 <body>
 <main>
@@ -268,9 +941,10 @@
 <!-- US_SECTOR_PANEL_EN_END --></template>
 </aside>
 <section class="history-stage">
-  <div class="record-banner panel"><strong id="record-title">每日盘前沙盘推演 by Zcreatzy</strong><span id="record-meta">正在读取归档...</span><div class="banner-controls"><div class="color-toggle" aria-label="涨跌颜色"><button type="button" data-color-mode="green-up">绿涨红跌</button><button type="button" data-color-mode="red-up">红涨绿跌</button></div><div class="theme-toggle"><button type="button" id="theme-toggle" aria-label="切换至暗夜模式" aria-pressed="false">🌙 暗夜</button></div><div class="lang-toggle" aria-label="Language"><button type="button" data-lang="zh">中文</button><button type="button" data-lang="en">EN</button></div></div></div>
+  <div class="record-banner panel"><strong id="record-title">每日盘前沙盘推演 by Zcreatzy</strong><div class="record-meta-stack"><span id="record-meta">正在读取归档...</span><small>powered by Codex Automation + GPT 5.6 Sol</small></div><div class="banner-controls"><div class="color-toggle" aria-label="涨跌颜色"><button type="button" data-color-mode="green-up">绿涨红跌</button><button type="button" data-color-mode="red-up">红涨绿跌</button></div><div class="theme-toggle"><button type="button" id="theme-toggle" aria-label="切换至暗夜模式" aria-pressed="false">🌙 暗夜</button></div><div class="lang-toggle" aria-label="Language"><button type="button" data-lang="zh">中文</button><button type="button" data-lang="en">EN</button></div></div></div>
+  <div class="brief-view-toggle" role="group" aria-label="Brief view"><button type="button" data-brief-view="ah" data-label-zh="A股/港股" data-label-en="A Shares / HK" aria-pressed="true">A股/港股</button><button type="button" data-brief-view="us" data-label-zh="美股" data-label-en="US Market" aria-pressed="false">美股</button></div>
   <section class="brief-grid">
-    <article class="brief panel" id="a-h-brief"><div class="brief-header"><div><div class="brief-kicker">Asia Morning</div><h2>A股港股早报</h2></div><div class="brief-time" id="ah-time"><!-- A_H_TIME_START -->
+    <article class="brief panel" id="a-h-brief"><div class="brief-header"><div class="brief-kicker">Asia Morning</div><div class="brief-time" id="ah-time"><!-- A_H_TIME_START -->
 2026-08-21 09:03 CST
 <!-- A_H_TIME_END --></div></div><div class="brief-content" id="ah-content"><!-- A_H_BRIEF_START -->
 <div class="brief-dashboard">
@@ -348,7 +1022,7 @@
 <section class="module full"><h3>数据来源与时间点</h3><p class="source-line">来源：Moomoo美股行业榜（2026-08-21 08:53 CST抓取，页面显示08/20 20:53 ET；完整读取5页、145行业，49涨96跌，黄金与贵金属已重点核验）；Futunn/Moomoo Sparks初始状态主题榜（08:57 CST抓取，存储、加密、光通信与半导体交叉核验）；Futu OpenD订阅的QQQ/SPY/DIA及10只panel代表股夜盘字段（08:59 CST抓取，约08/20 20:59 EDT；源未标示延迟，API未单列逐笔时间）；Futu HK/SH/SZ财报日历、NOTICE搜索、财报价格与港股竞价快照（08:58—09:01 CST）；AP关于8月20日美国—伊朗、中东定居点、美股、美债与油价；Marvell—Google合作公开报道。指数现金收盘为8月20日美东时段。</p></section>
 </div>
 <!-- A_H_BRIEF_END --></div></article>
-    <article class="brief panel" id="us-brief"><div class="brief-header"><div><div class="brief-kicker">US Premarket</div><h2>美股盘前简报</h2></div><div class="brief-time" id="us-time"><!-- US_TIME_START -->
+    <article class="brief panel" id="us-brief"><div class="brief-header"><div class="brief-kicker">US Premarket</div><div class="brief-time" id="us-time"><!-- US_TIME_START -->
 2026-08-21 20:41 CST
 <!-- US_TIME_END --></div></div><div class="brief-content" id="us-content"><!-- US_BRIEF_START -->
 <div class="brief-dashboard">
@@ -431,6 +1105,7 @@
   var currentLang = ((navigator.language || '').toLowerCase().indexOf('zh') === 0) ? 'zh' : 'en';
   var currentColorMode = localStorage.getItem('marketAheadColorMode') === 'red-up' ? 'red-up' : 'green-up';
   var currentTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+  var currentBriefView = document.documentElement.dataset.briefView === 'us' ? 'us' : 'ah';
   var zhMonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var dowsByLang = {zh:['一','二','三','四','五','六','日'],en:['Mon','Tue','Wed','Thu','Fri','Sat','Sun']};
   var grid = document.getElementById('calendar-grid');
@@ -443,8 +1118,6 @@
   var usContent = document.getElementById('us-content');
   var ahTime = document.getElementById('ah-time');
   var usTime = document.getElementById('us-time');
-  var ahTitle = document.querySelector('#a-h-brief h2');
-  var usTitle = document.querySelector('#us-brief h2');
   var sectorPanel = document.querySelector('.us-sector-panel');
   var note = document.querySelector('.note');
   var loaded = {AH:null,US:null};
@@ -454,6 +1127,16 @@
   var loadedEn = {AH:null,US:null};
   var sectorEnTemplate = document.getElementById("us-sector-panel-en");
   var sectorEn = sectorEnTemplate ? sectorEnTemplate.innerHTML : "";
+  function applyBriefView(){
+    document.documentElement.dataset.briefView = currentBriefView;
+    var ahBrief = document.getElementById('a-h-brief');
+    var usBrief = document.getElementById('us-brief');
+    if(ahBrief){ahBrief.hidden = currentBriefView !== 'ah';}
+    if(usBrief){usBrief.hidden = currentBriefView !== 'us';}
+    Array.prototype.forEach.call(document.querySelectorAll('.brief-view-toggle button'), function(button){
+      button.setAttribute('aria-pressed', button.getAttribute('data-brief-view') === currentBriefView ? 'true' : 'false');
+    });
+  }
   function typeKey(type){return String(type || '').toUpperCase().replace('/','');}
   function hasType(record, type){return (record.types || []).some(function(item){return typeKey(item) === type;});}
   function esc(text){return String(text == null ? '' : text).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});}
@@ -478,7 +1161,7 @@
         if(date === latest.date){cls.push('active');}
         if(hasType(record,'AH')){cls.push('has-ah');}
         if(hasType(record,'US')){cls.push('has-us');}
-        grid.insertAdjacentHTML('beforeend','<a class="' + cls.join(' ') + '" href="history/?date=' + date + '" title="' + esc(record.title || date) + '">' + day + '</a>');
+        grid.insertAdjacentHTML('beforeend','<a class="' + cls.join(' ') + '" href="../../MarketAhead/history/?date=' + date + '" title="' + esc(record.title || date) + '">' + day + '</a>');
       }else{
         grid.insertAdjacentHTML('beforeend','<span>' + day + '</span>');
       }
@@ -527,8 +1210,9 @@
     document.body.classList.toggle('lang-en', isEn);
     document.title = isEn ? 'MarketAhead By ZC' : 'MarketAhead By ZC';
     recordTitle.textContent = isEn ? 'Daily Premarket Wargame by Zcreatzy' : '每日盘前沙盘推演 by Zcreatzy';
-    ahTitle.textContent = isEn ? 'A/H Morning Brief' : 'A股港股早报';
-    usTitle.textContent = isEn ? 'US Premarket Brief' : '美股盘前简报';
+    Array.prototype.forEach.call(document.querySelectorAll('.brief-view-toggle button'), function(button){
+      button.textContent = button.getAttribute(isEn ? 'data-label-en' : 'data-label-zh') || button.textContent;
+    });
     ahTime.textContent = isEn ? toNewYorkTime(loadedTimes.AH || ahTime.textContent) : (loadedTimes.AH || ahTime.textContent);
     usTime.textContent = isEn ? toNewYorkTime(loadedTimes.US || usTime.textContent) : (loadedTimes.US || usTime.textContent);
     if(note){note.innerHTML = isEn ? 'Note: archived records load from <code>history/data/YYYY-MM-DD.json</code>; date pages render through <code>history/?date=YYYY-MM-DD</code>; the homepage calendar is generated from <code>history/manifest.json</code>.' : '提示：历史内容已迁移到 <code>history/data/YYYY-MM-DD.json</code>，日期页使用 <code>history/?date=YYYY-MM-DD</code> 读取渲染；首页日历由 <code>history/manifest.json</code> 自动生成。';}
@@ -600,7 +1284,7 @@
   }
   function loadRecord(record, type, target, timeTarget){
     if(!record){target.innerHTML = '<div class="panel empty">' + (currentLang === 'en' ? 'No archive yet.' : '暂无归档。') + '</div>';return Promise.resolve('');}
-    return fetch('history/data/' + record.date + '.json', {cache:'no-store'}).then(function(res){
+    return fetch('../../MarketAhead/history/data/' + record.date + '.json', {cache:'no-store'}).then(function(res){
       if(!res.ok){throw new Error(record.date);}
       return res.json();
     }).then(function(data){return renderEntry(target, timeTarget, data, type);}).catch(function(){
@@ -624,6 +1308,13 @@
       applyColorMode();
     });
   });
+  Array.prototype.forEach.call(document.querySelectorAll('.brief-view-toggle button'), function(button){
+    button.addEventListener('click', function(){
+      currentBriefView = button.getAttribute('data-brief-view') === 'us' ? 'us' : 'ah';
+      localStorage.setItem('marketAheadBriefView', currentBriefView);
+      applyBriefView();
+    });
+  });
   if(themeToggle){
     themeToggle.addEventListener('click', function(){
       currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -633,8 +1324,9 @@
   }
   applyTheme();
   applyColorMode();
+  applyBriefView();
   applyLanguage();
-  fetch('history/manifest.json', {cache:'no-store'}).then(function(res){return res.json();}).then(function(manifest){
+  fetch('../../MarketAhead/history/manifest.json', {cache:'no-store'}).then(function(res){return res.json();}).then(function(manifest){
     var records = (manifest.records || []).slice().sort(function(a,b){return b.date.localeCompare(a.date);});
     currentRecords = records;
     renderCalendar(records);
