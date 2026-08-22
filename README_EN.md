@@ -3,11 +3,11 @@
   <a href="./README_EN.md"><img src="https://img.shields.io/badge/English-Current-2563eb?style=for-the-badge" alt="English"></a>
 </p>
 
-# MarketAhead
+# PreMarketor
 
 > A bilingual, archive-first research dashboard for China A-shares, Hong Kong equities, and US premarket sessions.
 
-MarketAhead does more than place headlines on a page. It organizes each premarket brief into an auditable decision chain: **facts and price feedback → cross-asset/sector mapping → premarket conclusion → stock triggers → causal logic → risks and invalidation → sources and timestamps**.
+PreMarketor does more than place headlines on a page. It organizes each premarket brief into an auditable decision chain: **facts and price feedback → cross-asset/sector mapping → premarket conclusion → stock triggers → causal logic → risks and invalidation → sources and timestamps**.
 
 > Automation and model: This project uses **Codex Automation + GPT 5.6 Sol High** to generate, update, validate, and publish each daily brief. The automation runs outside this repository; this repository stores the deployable static artifacts.
 
@@ -15,7 +15,7 @@ Live site: [https://market-ahead-open.vercel.app/](https://market-ahead-open.ver
 
 ## Purpose
 
-MarketAhead brings research for two market windows into one workspace:
+PreMarketor brings research for two market windows into one workspace:
 
 - **A-share and Hong Kong morning brief**: maps overnight US moves, cross-asset changes, industry breadth, and local price feedback into signals relevant to the A-share and Hong Kong opens.
 - **US premarket brief**: organizes futures, rates, oil, earnings, and premarket price reactions into opening themes, event trades, and risk conditions.
@@ -128,7 +128,7 @@ The archive is not a summary substitute: `html` / `html_en` preserve the full mo
 ## Repository Structure
 
 ```text
-MarketAhead/
+PreMarketor/
 ├── index.html                     # app shell, styles, latest snapshots, and runtime
 ├── README.md                      # default Chinese documentation
 ├── README_EN.md                   # English documentation

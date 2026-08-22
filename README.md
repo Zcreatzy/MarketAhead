@@ -3,11 +3,11 @@
   <a href="./README_EN.md"><img src="https://img.shields.io/badge/English-Switch-334155?style=for-the-badge" alt="English"></a>
 </p>
 
-# MarketAhead
+# PreMarketor
 
 > 面向 A股、港股与美股盘前的双市场、双语、可归档研究仪表盘。
 
-MarketAhead 不只是把新闻堆进网页，而是把每日盘前信息组织成一条可检查的决策链：**事实与价格反馈 → 跨资产/板块映射 → 盘前结论 → 个股触发条件 → 逻辑链 → 风险与失效条件 → 数据来源与时间点**。
+PreMarketor 不只是把新闻堆进网页，而是把每日盘前信息组织成一条可检查的决策链：**事实与价格反馈 → 跨资产/板块映射 → 盘前结论 → 个股触发条件 → 逻辑链 → 风险与失效条件 → 数据来源与时间点**。
 
 > 自动化与模型：本项目利用 **Codex Automation + GPT 5.6 Sol High** 生成、更新、校验并发布每日简报。自动化运行在仓库之外；本仓库保存可直接部署的静态产物。
 
@@ -15,7 +15,7 @@ MarketAhead 不只是把新闻堆进网页，而是把每日盘前信息组织�
 
 ## 项目定位
 
-MarketAhead 将两个不同时区的盘前研究放在同一个工作台中：
+PreMarketor 将两个不同时区的盘前研究放在同一个工作台中：
 
 - **A股港股早报**：结合隔夜美股、跨资产变化、行业强弱与本地价格反馈，寻找对 A股和港股开盘最有解释力的映射。
 - **美股盘前简报**：结合期指、利率、原油、财报与盘前价格反馈，梳理美股开盘前的主线、事件交易和风险条件。
@@ -128,7 +128,7 @@ flowchart LR
 ## 仓库结构
 
 ```text
-MarketAhead/
+PreMarketor/
 ├── index.html                     # 首页壳、样式、最新静态快照与运行逻辑
 ├── README.md                      # 默认中文版文档
 ├── README_EN.md                   # English documentation

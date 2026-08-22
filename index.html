@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MarketAhead By ZC</title>
+  <title>PreMarketor</title>
   <meta name="description" content="A股港股早报与美股盘前简报的每日图文汇总。">
   <script>try{document.documentElement.dataset.theme=localStorage.getItem('marketAheadTheme')==='dark'?'dark':'light';document.documentElement.dataset.briefView=localStorage.getItem('marketAheadBriefView')==='us'?'us':'ah';}catch(e){document.documentElement.dataset.theme='light';document.documentElement.dataset.briefView='ah';}</script>
   <style>
@@ -520,13 +520,30 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
   padding:var(--space-sm) 0 var(--space-md);
   box-shadow:none;
 }
-.record-banner strong{
+.record-heading{
+  display:flex;
+  align-items:baseline;
+  flex:1 1 24rem;
+  flex-wrap:wrap;
+  gap:var(--space-xs) var(--space-sm);
+  min-width:0;
+}
+.record-heading strong{
   color:var(--color-ink);
   font-family:var(--font-display);
   font-size:clamp(1.65rem,3vw,2.55rem);
   font-weight:600;
   letter-spacing:-.025em;
   line-height:1;
+}
+.research-disclaimer{
+  max-width:34rem;
+  color:var(--color-ink-2);
+  font-family:var(--font-body);
+  font-size:var(--text-sm);
+  font-weight:600;
+  line-height:1.45;
+  overflow-wrap:anywhere;
 }
 .record-meta-stack{
   display:grid;
@@ -847,7 +864,7 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
 }
 @media (min-width:60rem) and (max-width:74.99rem){
   .record-banner{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end}
-  .record-banner>strong{grid-column:1/-1}
+  .record-banner>.record-heading{grid-column:1/-1}
   .record-meta-stack{grid-column:1;overflow-wrap:anywhere}
   .record-meta-stack small{white-space:normal}
   .banner-controls{grid-column:2}
@@ -966,7 +983,7 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
 <!-- US_SECTOR_PANEL_EN_END --></template>
 </aside>
 <section class="history-stage">
-  <div class="record-banner panel"><strong id="record-title">每日盘前沙盘推演 by Zcreatzy</strong><div class="record-meta-stack"><span id="record-meta">正在读取归档...</span><small>powered by Codex Automation + GPT 5.6 Sol</small></div><div class="banner-controls"><div class="color-toggle" aria-label="涨跌颜色"><button type="button" data-color-mode="green-up">绿涨红跌</button><button type="button" data-color-mode="red-up">红涨绿跌</button></div><div class="theme-toggle"><button type="button" id="theme-toggle" aria-label="切换至暗夜模式" aria-pressed="false">🌙 暗夜</button></div><div class="lang-toggle" aria-label="Language"><button type="button" data-lang="zh">中文</button><button type="button" data-lang="en">EN</button></div></div></div>
+  <div class="record-banner panel"><div class="record-heading"><strong id="record-title">每日盘前预测器</strong><b id="research-disclaimer" class="research-disclaimer">仅用于市场研究与信息整理，不构成任何投资建议</b></div><div class="record-meta-stack"><span id="record-meta">正在读取归档...</span><small>powered by Codex Automation + GPT 5.6 Sol</small></div><div class="banner-controls"><div class="color-toggle" aria-label="涨跌颜色"><button type="button" data-color-mode="green-up">绿涨红跌</button><button type="button" data-color-mode="red-up">红涨绿跌</button></div><div class="theme-toggle"><button type="button" id="theme-toggle" aria-label="切换至暗夜模式" aria-pressed="false">🌙 暗夜</button></div><div class="lang-toggle" aria-label="Language"><button type="button" data-lang="zh">中文</button><button type="button" data-lang="en">EN</button></div></div></div>
   <div class="brief-view-toggle" role="group" aria-label="Brief view"><button type="button" data-brief-view="ah" data-label-zh="A股/港股" data-label-en="A Shares / HK" aria-pressed="true">A股/港股</button><button type="button" data-brief-view="us" data-label-zh="美股" data-label-en="US Market" aria-pressed="false">美股</button></div>
   <section class="brief-grid">
     <article class="brief panel" id="a-h-brief"><div class="brief-header"><div class="brief-kicker">Asia Morning</div><div class="brief-time" id="ah-time"><!-- A_H_TIME_START -->
@@ -1136,6 +1153,7 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
   var title = document.getElementById('calendar-title');
   var shortTitle = document.getElementById('calendar-short');
   var recordTitle = document.getElementById('record-title');
+  var researchDisclaimer = document.getElementById('research-disclaimer');
   var themeToggle = document.getElementById('theme-toggle');
   var meta = document.getElementById('record-meta');
   var ahContent = document.getElementById('ah-content');
@@ -1231,8 +1249,9 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
     var isEn = currentLang === 'en';
     document.documentElement.lang = isEn ? 'en' : 'zh-CN';
     document.body.classList.toggle('lang-en', isEn);
-    document.title = isEn ? 'MarketAhead By ZC' : 'MarketAhead By ZC';
-    recordTitle.textContent = isEn ? 'Daily Premarket Wargame by Zcreatzy' : '每日盘前沙盘推演 by Zcreatzy';
+    document.title = 'PreMarketor';
+    recordTitle.textContent = isEn ? 'Daily Premarket Predictor' : '每日盘前预测器';
+    if(researchDisclaimer){researchDisclaimer.textContent = isEn ? 'For market research and information organization only. Not investment advice.' : '仅用于市场研究与信息整理，不构成任何投资建议';}
     var ahLegend = document.querySelector('[data-market-legend="ah"]');
     var usLegend = document.querySelector('[data-market-legend="us"]');
     if(ahLegend){ahLegend.textContent = isEn ? 'A Shares / HK' : 'A股/港股';}
