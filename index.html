@@ -1161,7 +1161,7 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
         if(date === latest.date){cls.push('active');}
         if(hasType(record,'AH')){cls.push('has-ah');}
         if(hasType(record,'US')){cls.push('has-us');}
-        grid.insertAdjacentHTML('beforeend','<a class="' + cls.join(' ') + '" href="../../MarketAhead/history/?date=' + date + '" title="' + esc(record.title || date) + '">' + day + '</a>');
+        grid.insertAdjacentHTML('beforeend','<a class="' + cls.join(' ') + '" href="./history/?date=' + date + '" title="' + esc(record.title || date) + '">' + day + '</a>');
       }else{
         grid.insertAdjacentHTML('beforeend','<span>' + day + '</span>');
       }
@@ -1284,7 +1284,7 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
   }
   function loadRecord(record, type, target, timeTarget){
     if(!record){target.innerHTML = '<div class="panel empty">' + (currentLang === 'en' ? 'No archive yet.' : '暂无归档。') + '</div>';return Promise.resolve('');}
-    return fetch('../../MarketAhead/history/data/' + record.date + '.json', {cache:'no-store'}).then(function(res){
+    return fetch('./history/data/' + record.date + '.json', {cache:'no-store'}).then(function(res){
       if(!res.ok){throw new Error(record.date);}
       return res.json();
     }).then(function(data){return renderEntry(target, timeTarget, data, type);}).catch(function(){
@@ -1326,7 +1326,7 @@ button[data-state="success"]{box-shadow:inset 0 -2px 0 var(--color-up)}
   applyColorMode();
   applyBriefView();
   applyLanguage();
-  fetch('../../MarketAhead/history/manifest.json', {cache:'no-store'}).then(function(res){return res.json();}).then(function(manifest){
+  fetch('./history/manifest.json', {cache:'no-store'}).then(function(res){return res.json();}).then(function(manifest){
     var records = (manifest.records || []).slice().sort(function(a,b){return b.date.localeCompare(a.date);});
     currentRecords = records;
     renderCalendar(records);
